@@ -1,0 +1,28 @@
+.main__banner{
+    object-fit: center;
+
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    
+}
+
+.card-text{
+    text-align: justify;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.footer__link{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.59);
+    transition: .5s;
+}
+
+.footer__link:hover{
+    color: #fff;
+}
