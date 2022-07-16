@@ -3,7 +3,7 @@
 namespace Database\Factories\Admin;
 
 use App\Models\Exhibitor;
-use App\Models\Unit;
+use App\Models\Organizer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -19,7 +19,8 @@ class EventFactory extends Factory
         return [
             'evento' => $this->faker->sentence(),
             'detalle' => $this->faker->paragraphs(1, true),
-            'costo' => $this->faker->numberBetween(0, 200),
+            'costo_student' => $this->faker->numberBetween(0, 50),
+            'costo_prof' => $this->faker->numberBetween(50, 150),
             'fecha_inicio' => $this->faker->date(),
             'fecha_fin' => $this->faker->date(),
             'imagen' => 'events/' . $this->faker->image(public_path('storage/events'), 640, 480, null, false),
@@ -27,7 +28,7 @@ class EventFactory extends Factory
             'link_telegram' => $this->faker->url(),
             'estado'=> $this->faker->randomElement([1, 2]),
             'id_expositor' => Exhibitor::all()->random()->id,
-            'id_unidad' => Unit::all()->random()->id
+            'id_organizador' => Organizer::all()->random()->id
         ];
     }
 }

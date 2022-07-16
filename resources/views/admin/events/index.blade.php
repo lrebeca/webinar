@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
+
     <!-- CSS only -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -43,7 +43,8 @@
                     <th>Id</th>
                     <th>Evento</th>
                     <th>Detalle</th>
-                    <th>Costo</th>
+                    <th>Costo Estudiantes</th>
+                    <th>Costo Profesionales</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
                     <th>Imagen</th>
@@ -57,17 +58,18 @@
                 <tbody>
                     @foreach ($events as $event)
                         @foreach ($exhibitors as $exhibitor)
-                            @foreach ($units as $unit)
-                                @if ($event->id_expositor == $exhibitor->id && $event->id_unidad == $unit->id)
+                            @foreach ($organizers as $organizer)
+                                @if ($event->id_expositor == $exhibitor->id && $event->id_organizador == $organizer->id)
                                 <tr>
                                     <td>{{$event->id}}</td>
                                     <td>{{$event->evento}}</td>
-                                    <td>{{$event->detalle}}</td>
-                                    <td>{{$event->costo}}</td>
+                                    <td style="width: 80%">{!!$event->detalle!!}</td>
+                                    <td>{{$event->costo_student}}</td>
+                                    <td>{{$event->costo_prof}}</td>
                                     <td>{{$event->fecha_inicio}}</td>
                                     <td>{{$event->fecha_fin}}</td>
                                     <td>
-                                        <img src="/imagen/{{$event->imagen}}" widt="70%" alt="">
+                                        <img src="{{Storage::url($event->imagen)}}" class="img-fluid" width="50%">
                                     </td>
                                     <td>
                                         <a href="{{$event->link_whatsapp}}" class="btn">
@@ -85,7 +87,7 @@
                                     </td>
                                     <td>{{$event->estado}}</td>
                                     <td>{{$exhibitor->suffix}} {{$exhibitor->nombre}} {{$exhibitor->apellido_paterno}} {{$exhibitor->apellido_materno}}</td>
-                                    <td>{{$unit->unidad}}</td>
+                                    <td>{{$organizer->unidad}} {{$organizer->provincia}}</td>
                                     <td>
                                         <br> Editar: 
                                         <a href="{{route('admin.events.edit', $event)}}" class="btn btn-outline-primary">

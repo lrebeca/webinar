@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Province;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UnitFactory extends Factory
+class OrganizerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,8 +15,8 @@ class UnitFactory extends Factory
     {
         return [
             'unidad' => $this->faker->sentence(),
-            'descripcion'=> $this->faker->paragraph(1),
-            'id_provincia' => Province::all()->random()->id
+            'provincia' => $this->faker->sentence(),
+            'detalle'=> $this->faker->paragraph(1)
         ];
     }
 }

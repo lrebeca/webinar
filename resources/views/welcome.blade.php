@@ -21,6 +21,16 @@
             background-position: center;
             height: 85vh;
         }
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
 </head>
@@ -47,26 +57,33 @@
             <div class="card-body ">
                 <div>
                     <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                        <img src="{{asset('asset/img/DSC_0006.jpg')}}" class="img-fluid">
-                        {{-- <img src="{{Storage::url($event->image->url)}}" alt=""> --}}
-                        {{-- {{Storage::url($event->image->url)}} --}}
+                        @isset($event->imagen)
+                            <img id="img" src="{{Storage::url($event->imagen)}}"  class="img-fluid" alt="">
+                        @else
+                            <div class="image-wrapper">
+                                <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}"  alt="">
+                            </div>
+                        @endisset
                     </div>
                     <div>
                         <h5 class="card-title text-center">
                             {{$event->evento}}
                         </h5>
                         <p class="card-text">
-                            {{$event->detalle}}
+                            {!!$event->detalle!!}
                         </p>
                     </div>
                 </div>
                 <div class="card-text text-center">
-                    @if ($event->costo > 0)
-                    <h6>Costo de la actividad</h6>
-                    {{$event->costo}}
+                    @if ($event->costo_student > 0 && $event->costo_prof > 0)
+                        <h6>Costo para Estudiantes</h6>
+                        {{$event->costo_student}}
+                        <h6>Costo para Profecionales</h6>
+                        {{$event->costo_prof}}
                     @else
                         <h5>Evento gratuito</h5>
                     @endif
+                    
                     <h6>Fecha de inicio</h6>
                     {{$event->fecha_inicio}}
                     <h6>Fecha de finalizacion</h6>
@@ -74,7 +91,7 @@
 
                     <br><br>
 
-                    <a href="{{route('show', $event)}}" class="btn btn-primary">Inscripción</a>
+                    <a href="{{route('events.show', $event)}}" class="btn btn-primary">Inscripción</a>
                     {{-- {{ $event->id }} --}}
 
                 </div>

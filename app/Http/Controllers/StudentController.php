@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentRequest;
 use App\Models\Admin\Event;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -16,10 +17,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
-        $events = Event::all();
-
-        return view('admin.students.index', compact('students', 'events'));
+        //
+        
     }
 
     /**
@@ -29,8 +28,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $event = Event::all();
-        return view('admin.students.create');
+        //
+        
     }
 
     /**
@@ -39,9 +38,20 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
         //
+        $student = $request->all();
+
+        // if($request->hasFile('img_deposito'))
+        // {
+        //     $student['img_deposito'] = $request->file('img_deposito')->store('depositos');
+        // }
+        Student::create($student);
+        
+        //return $student;
+        //return view('registers.ingresar', compact('student'));
+        return redirect()->route('students.mostrar', $student);
     }
 
     /**
@@ -50,9 +60,17 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function mostrar(Student $student)
     {
         //
+        return $student;
+        //return view('registers.index', compact('student'));
+    }
+    public function show(Student $student)
+    {
+        //
+        return $student;
+        //return view('registers.index', compact('student'));
     }
 
     /**
@@ -61,7 +79,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Student $student)
     {
         //
     }
@@ -73,7 +91,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -84,7 +102,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
         //
     }

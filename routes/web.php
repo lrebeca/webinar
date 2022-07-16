@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\EventController;
-use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,13 @@ Route::middleware([
 
 Route::get('/',[EventController::class,'welcome'])->name('welcome');
 
-Route::get('events/{event}',[EventController::class,'show'])->name('show');
+Route::get('events/{event}',[EventController::class,'show'])->name('events.show');
 
-Route::get('students/{event}',[StudentController::class,'index'])->name('index');
-// Route::resource('students', EventController::class)->names('admin.students'); 
+//Route::resource('registers', RegisterController::class)->names('registers'); 
+
+//Route::get('registers/{event}',[RegisterController::class,'show'])->name('registers.show');
+
+//Route::post('registers',[RegisterController::class,'store'])->name('registers.store');
+
+
+Route::resource('students', StudentController::class)->names('students'); 

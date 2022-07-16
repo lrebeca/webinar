@@ -272,7 +272,7 @@ return [
         ],
         [
             'text' => 'participantes',
-            'url'  => 'admin/settings',
+            'route'  => 'admin.students.index',
             'icon' => 'fas fa-fw fa-certificate',
         ],
         [
@@ -282,16 +282,10 @@ return [
         ],
         ['header' => '------------------------'],
         [
-            'text' => 'Provincias',
-            'route'  => 'admin.provinces.index',
+            'text' => 'Organizadores',
+            'route'  => 'admin.organizers.index',
             'icon' => 'fas fa-fw fa-user',
-            'active' => ['admin/provinces*'],
-        ],
-        [
-            'text' => 'Unidades',
-            'route'  => 'admin.units.index',
-            'icon' => 'fas fa-fw fa-lock',
-            'active' => ['admin/units*']
+            'active' => ['admin/organizers*'],
         ],
 
         // Esto es el multi nivel

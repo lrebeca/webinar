@@ -23,6 +23,7 @@ class CreateExhibitorsTable extends Migration
             $table->string('direccion')->nullable();
             $table->text('num_celular');
             $table->longText('descripcion')->nullable();
+
             $table->timestamps();
         });
     }

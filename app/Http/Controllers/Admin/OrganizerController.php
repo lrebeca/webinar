@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Province;
-use App\Models\Unit;
+use App\Models\Organizer;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class OrganizerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,9 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::all();
-        $provinces = Province::all();
-        
-        return view('admin.units.index', compact('units', 'provinces'));
+        $organizers = Organizer::all();
+
+        return view('admin.organizers.index', compact('organizers'));
     }
 
     /**
@@ -29,10 +27,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-
-        $provinces = Province::pluck('provincia', 'id')->toArray();
-
-        return view('admin.units.create', compact('provinces'));
+        return view('admin.organizers.create');
     }
 
     /**
@@ -46,13 +41,13 @@ class UnitController extends Controller
         $request->validate(
             [
                 'unidad' => 'required',
-                'descripcion' => 'required',
-                'id_provincia' => 'required'
+                'provincia' => 'required'
             ]
         );
-        $unit = Unit::create($request->all());
-        
-        return redirect()->route('admin.units.index', $unit)->with('info','La unidad se creo con exito!!');
+
+        $organizer = Organizer::create($request->all());
+
+        return redirect()->route('admin.organizers.index', $organizer)->with('info', 'El organizador fue creado con exito');
     }
 
     /**
@@ -61,10 +56,9 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Unit $unit)
+    public function show(Organizer $organizer)
     {
-        // $unit = Unit::all();
-        // return view('admin.students.index', compact('unit'));
+        //
     }
 
     /**
@@ -73,11 +67,9 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Unit $unit)
+    public function edit(Organizer $organizer)
     {
-        $provinces = Province::pluck('provincia', 'id')->toArray();
-       
-        return view('admin.units.edit', compact('unit', 'provinces'));
+        return view('admin.organizers.edit', compact('organizer'));
     }
 
     /**
@@ -87,20 +79,18 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Unit $unit)
+    public function update(Request $request, Organizer $organizer)
     {
         $request->validate(
             [
                 'unidad' => 'required',
-                'descripcion' => 'required',
-                'id_provincia' => 'required'
+                'provincia' => 'required'
             ]
         );
-        $unit->update(
-            $request->all()
-        );
-        return redirect()->route('admin.units.index', $unit)->with('info','La unidad se actualizo con exito');
-    
+
+        $organizer->update($request->all());
+
+        return redirect()->route('admin.organizers.index', $organizer)->with('info', 'El organizador fue actualizado');
     }
 
     /**
@@ -109,9 +99,9 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Unit $unit)
+    public function destroy(Organizer $organizer)
     {
-        $unit->delete();
-        return redirect()->route('admin.units.index')->with('info','La unidad se elimino con exito');
+        $organizer->delete();
+        return redirect()->route('admin.organizers.index')->with('info', 'El organizador fue eliminado');
     }
 }

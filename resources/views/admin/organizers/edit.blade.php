@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Editar la unidad {{$unit->unidad}} </h1>
+    <h1>Editar la unidad {{$organizer->unidad}} </h1>
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
 
     <div class="card">
         <div class="card-body">
-            {!! Form::model($unit, ['route'=>['admin.units.update', $unit], 'method'=> 'put']) !!}
+            {!! Form::model($organizer, ['route'=>['admin.organizers.update', $organizer], 'method'=> 'put']) !!}
             
                 {{-- Unidad --}}
                 <div class="form-group">
@@ -30,24 +30,24 @@
                     <span class="text-danger">{{$message}}</span>
                 @enderror
 
-                {{-- Descripcion --}}
+                {{-- Provincia --}}
                 <div class="form-group">
-                    {!! Form::label('descripcion', 'Descripcion') !!}
-                    {!! Form::text('descripcion', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la descripcion ']) !!}
+                    {!! Form::label('provincia', 'Provincia') !!}
+                    {!! Form::text('provincia', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la provincia']) !!}
                 </div>
 
-                @error('descripcion')
+                @error('provincia')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
 
-                {{-- Provincia o Ciudad --}}
 
+                {{-- Detalle --}}
                 <div class="form-group">
-                    {!! Form::label('id_provincia', 'Provincia o Ciudad') !!}
-                    {!! Form::select('id_provincia', $provinces, null, ['class' => 'form-control', 'placeholder'=>'Seleccione la provincia a la que pertenece']) !!}
+                    {!! Form::label('detalle', 'Detalle') !!}
+                    {!! Form::text('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el detalle ']) !!}
                 </div>
 
-                @error('id_provincia')
+                @error('detalle')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
                 <br>

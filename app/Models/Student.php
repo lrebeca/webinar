@@ -9,6 +9,13 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre','apellido_paterno','apellido_materno','email','carnet_identidad','carnet_universitario', 'n_celular','n_deposito', 'estado','img_deposito','id_evento'];
+
+    public function getRouteKeyName()
+    {
+        return "nombre";
+    }
+
         
     //relacion uno a muchos inversa con eventos 
 

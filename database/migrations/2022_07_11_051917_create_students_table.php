@@ -15,15 +15,23 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
             $table->string('email')->unique();
             $table->char('carnet_identidad', 10);
-            $table->char('carnet_universitario', 8);
+            $table->char('carnet_universitario', 8)->nullable();
             $table->text('n_celular');
-            $table->string('n_deposito');
-            $table->string('img_deposito');
+            $table->string('n_deposito')->nullable();
+            $table->string('img_deposito')->nullable();
+
+            //Es el estado del participante
+            // 1 = estudiante
+            // 2 = Profesional
+
+            $table->enum('estado', ['estudiante', 'profesional']);
+            $table->integer('costo_e')->nullable();
 
             //Llave foranea
             $table->unsignedBigInteger('id_evento');

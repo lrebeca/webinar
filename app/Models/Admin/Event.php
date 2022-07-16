@@ -13,7 +13,7 @@ class Event extends Model
 
     protected $table = 'events';
 
-    protected $fillable = ['evento', 'detalle', 'costo', 'fecha_inicio', 'fecha_fin', 'link_whatsapp', 'link_telegram', 'estado', 'id_unidad', 'id_expositor'];
+    protected $fillable = ['evento', 'detalle', 'costo_student', 'costo_prof', 'fecha_inicio', 'fecha_fin', 'imagen', 'link_whatsapp', 'link_telegram', 'estado', 'id_expositor', 'id_organizador'];
 
 
     public function getRouteKeyName()

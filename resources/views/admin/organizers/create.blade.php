@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Crear Nueva Provincia </h1>
+    <h1>Crear Nueva Unidad </h1>
 @stop
 
 @section('content')
@@ -18,8 +18,18 @@
 
 <div class="card">
     <div class="card-body">
-        {!! Form::open(['route'=>'admin.provinces.store']) !!}
+        {!! Form::open(['route'=>'admin.organizers.store']) !!}
         
+        {{-- Unidad --}}
+        <div class="form-group">
+            {!! Form::label('unidad', 'Unidad') !!}
+            {!! Form::text('unidad', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad']) !!}
+        </div>
+
+        @error('unidad')
+            <span class="text-danger">{{$message}}</span>
+        @enderror
+
         {{-- Provincia --}}
         <div class="form-group">
             {!! Form::label('provincia', 'Provincia') !!}
@@ -30,16 +40,17 @@
             <span class="text-danger">{{$message}}</span>
         @enderror
 
-         {{-- Departamento --}}
+
+         {{-- Detalle --}}
          <div class="form-group">
-            {!! Form::label('departamento', 'Departamento') !!}
-            {!! Form::text('departamento', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el departamento ']) !!}
+            {!! Form::label('detalle', 'Detalle') !!}
+            {!! Form::text('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el detalle ']) !!}
         </div>
 
-        @error('departamento')
+        @error('detalle')
             <span class="text-danger">{{$message}}</span>
         @enderror
-
+        
         <br>
         {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
 

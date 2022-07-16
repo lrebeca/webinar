@@ -1,4 +1,4 @@
-</body>
+
 <footer class="bg-dark text-white pt-2 pb-4">
     <div class="container text-md-left">
         <div class="row text-md-left">

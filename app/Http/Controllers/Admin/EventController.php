@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\EventRequest;
 use Illuminate\Http\Request;
 use App\Models\Admin\Event;
 use App\Models\Exhibitor;
-use App\Models\Province;
-use App\Models\Unit;
+use App\Models\Organizer;
 use App\Models\User;
-Use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -22,13 +20,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
-        $units = Unit::all();
+        $organizers = Organizer::all();
         $events = Event::all();
         $exhibitors = Exhibitor::all();
         
-        return view('admin.events.index', compact('events', 'units', 'exhibitors'));
-
+        return view('admin.events.index', compact('events', 'organizers', 'exhibitors'));
     }
 
     /**
@@ -38,20 +34,11 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
         $exhibitors = Exhibitor::pluck('nombre', 'id')->toArray();
-        //$exhibitors = Exhibitor::all();
         $users = User::pluck('name', 'id')->toArray();
-        $units = Unit::pluck('unidad', 'id')->toArray();
-        $provinces = Province::pluck('provincia', 'id')->toArray();
+        $organizers = Organizer::all();
 
-        $unidad = Unit::join('provinces','units.id_provincia','=','provinces.id')
-            ->select('units.unidad','provinces.provincia')
-            ->get();
-
-        return view('admin.events.create', compact('users', 'exhibitors', 'units', 'unidad'));
-
-    
+        return view('admin.events.create', compact('users', 'exhibitors', 'organizers'));
     }
 
     /**
@@ -60,11 +47,16 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEventRequest $request)
+    public function store(EventRequest $request)
     {
-        $event = Event::create($request->all());
-        
-        return redirect()->route('admin.events.edit', $event)->with('info','El evento se creo con exito!!');
+        $event = $request->all();
+        if($request->hasFile('imagen')){
+            $event['imagen'] = $request->file('imagen')->store('events');  
+        }
+        Event::create($event);
+
+        return redirect()->route('admin.events.index', $event)->with('info','El evento se creo con exito!!');
+
     }
 
     /**
@@ -75,9 +67,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //return $event;
-        $event = Event::all();
-        return view('admin.students.index', compact('event'));
+        //
+        return view('registers.show', compact('event'));
     }
 
     /**
@@ -88,10 +79,11 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $units = Unit::pluck('unidad', 'id')->toArray();
+        $organizers = Organizer::all();
         $users = User::pluck('name', 'id')->toArray();
         $exhibitors = Exhibitor::pluck('nombre', 'id')->toArray();
-        return view('admin.events.edit', compact('event', 'users', 'units', 'exhibitors'));
+
+        return view('admin.events.edit', compact('event', 'users', 'organizers', 'exhibitors'));
     }
 
 
@@ -102,13 +94,25 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(EventRequest $request, Event $event)
     {
-        //
+      
+        $event->update($request->except('imagen'));
 
-        $event->update(
-            $request->all()
-        );
+        if($request->file('imagen')){
+
+            $image = Storage::put('events', $event['imagen']);
+
+            if($request->file('imagen')){
+                Storage::delete($event['imagen']);
+
+                $event->update(['imagen' => $image]);
+            }else{
+                $event->create(['imagen'=> $image]);
+            }
+        }
+        //return $event;
+        
         return redirect()->route('admin.events.index', $event)->with('info','El evento se actualizo con exito');
     }
 
@@ -122,7 +126,8 @@ class EventController extends Controller
     {
         //
         $event->delete();
-        redirect()->route('admin.events.index')->with('info','El evento se elimino con exito');
+
+        return redirect()->route('admin.events.index')->with('info','El evento se elimino con exito');
     }
     public function welcome()
     {

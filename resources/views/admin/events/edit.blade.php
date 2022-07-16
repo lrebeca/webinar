@@ -22,132 +22,173 @@
 
             {!! Form::model($event, ['route'=>['admin.events.update', $event], 'method' => 'put']) !!}
 
-            <!-- Nombre de la actividad -->
-            <div class="form-group">
-                {!! Form::label('nombre_act', 'Actividad') !!}
-                {!! Form::text('nombre_act', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el nombre de la actividad']) !!}
-            </div>
+                {!! Form::hidden('user_id', auth()->user()->id) !!}
 
-            @error('nombre_act')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+            <!-- Nombre del Evento -->
+                <div class="form-group">
+                    {!! Form::label('evento', 'Evento') !!}
+                    {!! Form::text('evento', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el evento que se realizara']) !!}
+                </div>
 
-        <!-- detalles  -->
+                @error('evento')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-            <div class="form-group">
-                {!! Form::label('detalle', 'Detalle') !!}
-                {!! Form::textarea('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese los detalles de la actividad']) !!}
-            </div>
-            
-            @error('detalle')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-        
-        <!-- Costo de la actividad -->
+            <!-- detalle  -->
 
-            <div class="form-group">
-                {!! Form::label('costo', 'Costo') !!}
-                {!! Form::number('costo', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el costo de la actividad']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('detalle', 'Detalle') !!}
+                    {!! Form::textarea('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese los detalles del evento']) !!}
+                </div>
+                
+                @error('detalle')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-            @error('costo')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+            {{-- Seleccionar si el evento tiene costo --}}
+
+                <div class="form-group">
+                    {{-- <button type="button" onclick="mostrarCosto();" >Evento tiene Costo</button> --}}
+                    {!! Form::label('', 'El evento ya tiene Costos:') !!} <br>
+                    <input type="radio" onclick="mostrarCosto();" name="radiob"> SI
+                    <input type="radio" onclick="ocultarCosto();" name="radiob"> NO
+                </div>
+
+            <!-- Costo de la actividad -->
+                <div id="costos">
+                    
+                    <div class="form-group">
+                        {!! Form::label('costo_student', 'Costo Para Estudiantes') !!}
+                        {!! Form::number('costo_student', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el costo para estudiantes']) !!}
+                    </div>
+
+                    @error('costo_student')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+
+                    <div class="form-group">
+                        {!! Form::label('costo_prof', 'Costo Para Profesionales') !!}
+                        {!! Form::number('costo_prof', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el costo para profesionales']) !!}
+
+                    </div>
+
+                    @error('costo_prof')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>   
 
             <!-- Fecha inicio de la Actividad -->
 
-            <div class="form-group">
-                {!! Form::label('fecha_inicio', 'Fecha Inicio') !!}
-                {!! Form::date('fecha_inicio', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la fecha de inicio de la actividad']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('fecha_inicio', 'Fecha Inicio') !!}
+                    {!! Form::date('fecha_inicio', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la fecha de inicio del evento']) !!}
+                </div>
 
-            @error('fecha_inicio')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+                @error('fecha_inicio')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-        <!-- Fecha finalizacion de la actividad -->
+            <!-- Fecha finalizacion de la actividad -->
 
-            <div class="form-group">
-                {!! Form::label('fecha_fin', 'Fecha Finalizacion') !!}
-                {!! Form::date('fecha_fin', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la fecha de finalizacion de la actividad']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('fecha_fin', 'Fecha Finalizacion') !!}
+                    {!! Form::date('fecha_fin', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la fecha de finalizacion del evento']) !!}
+                </div>
 
-            @error('fecha_fin')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+                @error('fecha_fin')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
             <!-- link de whatsapp -->
 
-            <div class="form-group">
-                {!! Form::label('link_whatsapp', 'WhatsApp') !!}
-                {!! Form::text('link_whatsapp', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link para whatsapp']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('link_whatsapp', 'WhatsApp') !!}
+                    {!! Form::text('link_whatsapp', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link para whatsapp']) !!}
+                </div>
 
-            @error('link_whatsapp')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+                @error('link_whatsapp')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
             <!-- Link de telegram -->
 
-            <div class="form-group">
-                {!! Form::label('link_telegram', 'Telegram') !!}
-                {!! Form::text('link_telegram', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link de telegram']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('link_telegram', 'Telegram') !!}
+                    {!! Form::text('link_telegram', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link de telegram']) !!}
+                </div>
 
-            @error('link_telegram')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+                @error('link_telegram')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-            
+        
             <!-- estado del evento -->
 
-            <div class="form-group">
-                Estado: &nbsp;
-                {!! Form::label('status', 'Borrador') !!}
-                {!! Form::radio('status', '1' )!!}
-                {!! Form::label('status', 'publicado') !!}
-                {!! Form::radio('status', '2') !!}
-            </div>
+                <div class="form-group">
+                    Estado: &nbsp;<br>
+                    {!! Form::label('estado', 'Borrador') !!}
+                    {!! Form::radio('estado', 1, true )!!}
+                    {!! Form::label('estado', 'publicado') !!}
+                    {!! Form::radio('estado', 2) !!}
+                </div>
 
-            @error('status')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+                @error('estado')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
             <!-- Nombre del expositor -->
 
-            <div class="form-group">
-                {!! Form::label('id_user', 'Nombre del Espositor') !!}
-                {!! Form::select('id_user', $users, null, ['class' => 'form-control', 'placeholder'=>'Ingrese el nombre del expositor de la actividad']) !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('id_expositor', 'Nombre del Espositor') !!}
+                    {!! Form::select('id_expositor',$exhibitors, null, ['class' => 'form-control', 'placeholder'=>'Ingrese el nombre del expositor del evento']) !!}
+                </div>
 
-            @error('id_user')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+                @error('id_expositor')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-            <!-- Area -->
+            <!-- Unidad organizadora -->
+            
+                <div class="form-group">
+                    {!! Form::label('id_organizador', 'Organizador') !!}
+                    {{-- {!! Form::select('id_organizador',$organizers, null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad que esta organizando el evento']) !!} --}}
+                    
+                    <select name="id_organizador" id="" class="form-control" placeholder="Seleccione un organizador">
+                        @foreach ($organizers as $organizer)
+                            <option value="{{$organizer->id}}">{{$organizer->unidad}} - {{$organizer->provincia}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('id_area', 'Organizador') !!}
-                {!! Form::select('id_area', $areas, null, ['class' => 'form-control', 'placeholder'=>'Ingrese el nombre del expositor de la actividad']) !!}
-            </div>
+                @error('id_organizador')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-            @error('id_area')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+            <!-- Imagen  -->
 
-            <!-- Provincias -->
-
-            <div class="form-group">
-                {!! Form::label('id_province', 'Provincias') !!}
-                {!! Form::select('id_province', $provinces, null, ['class' => 'form-control', 'placeholder'=>'Ingrese el nombre del expositor de la actividad']) !!}
-            </div>
-
-            @error('id_province')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="image-wrapper">
+                            @isset($event->imagen)
+                                <img id="img" src="{{Storage::url($event->imagen)}}"  alt="">
+                            @else
+                                <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}"  alt="">
+                            @endisset
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label('imagen', 'Imagen') !!} <br>
+                            {!! Form::file('imagen', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
+                        </div>
+                        @error('imagen')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+        
                 <br>
-            {!! Form::submit('Actulizar actividad', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actulizar evento', ['class' => 'btn btn-primary']) !!}
                 <br>
 
             {!! Form::close() !!}
@@ -155,10 +196,55 @@
     </div>
 @stop
 
-<!-- @section('css')
+@section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        #costos{
+            display: none;
+        }
+    </style>
 @stop
 
 @section('js')
     <script> console.log('Hi!'); </script>
-@stop -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+        .create( document.querySelector( '#detalle' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+
+        // Para cambiar la imagen
+        document.getElementById("imagen").addEventListener('change', cambiarImagen);
+
+        function cambiarImagen(event){
+            var file = event.target.files[0];
+
+            var reader = new FileReader();
+            reader.onload = (event) => {
+                document.getElementById("img").setAttribute('src', event.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+        
+        //Para mostrar los costos 
+        function mostrarCosto(){
+            document.getElementById('costos').style.display = 'block'; 
+        }
+        function ocultarCosto(){
+            document.getElementById('costos').style.display = 'none'; 
+        }
+    </script>
+@stop

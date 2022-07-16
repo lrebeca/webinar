@@ -27,12 +27,12 @@
                         Carreras
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a href="#" class="dropdown-item">Contaduría Pública</a></li>
-                        <li><a href="#" class="dropdown-item">Contaduría Pública T. S.</a></li>
-                        <li><a href="#" class="dropdown-item">Administración Financiera</a></li>
-                        <li><a href="#" class="dropdown-item">Comercio Esterior y Aduanas</a></li>
+                        <li><a href="https://cpcf.usfx.bo/principal/contaduria/" class="dropdown-item">Contaduría Pública</a></li>
+                        <li><a href="https://cpcf.usfx.bo/principal/contaduria-publica-ts/" class="dropdown-item">Contaduría Pública T. S.</a></li>
+                        <li><a href="https://cpcf.usfx.bo/principal/administracion-financiera/" class="dropdown-item">Administración Financiera</a></li>
+                        <li><a href="https://cpcf.usfx.bo/comercio-exterior-y-aduanas/" class="dropdown-item">Comercio Esterior y Aduanas</a></li>
                     </ul>
-                    <li class="nav-item"><a href="#" class="nav-link text-white">Posgrado</a></li>
+                    <li class="nav-item"><a href="https://cpcf.usfx.bo/principal/posgrado/" class="nav-link text-white">Posgrado</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white">Contactanos</a></li>
                 </ul>
             </div>
@@ -58,7 +58,6 @@
         </div>
     </nav>
   </header>
-  <body>
       
   
     

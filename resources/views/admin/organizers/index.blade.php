@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Lista de las unidades existentes</h1>
+    <h1>Lista de los organizadores de eventos</h1>
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 </div>
 
 <div class="card-header">
-    <a href="{{route('admin.units.create')}}" class="btn btn-primary">Agregar Nueva Unidad</a>
+    <a href="{{route('admin.organizers.create')}}" class="btn btn-primary">Agregar Nueva Unidad</a>
 </div><br>
 <div class="car">
     <div class="car-body">
@@ -29,22 +29,20 @@
             <thead class="table-dark">
                 <th>Id</th>
                 <th>Unidad</th>
-                <th>Descripcion</th>
-                <th>Provincia o Ciudad</th>
+                <th>Provincia</th>
+                <th>Detalle</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </thead>
             <tbody>
-                @foreach ($units as $unit)
-                    @foreach ($provinces as $province)
-                        @if ($unit->id_provincia == $province->id)
+                @foreach ($organizers as $organizer)
                         <tr>
-                            <td>{{$unit->id}}</td>
-                            <td>{{$unit->unidad}}</td>
-                            <td>{{$unit->descripcion}}</td>
-                            <td>{{$province->provincia}}</td>
+                            <td>{{$organizer->id}}</td>
+                            <td>{{$organizer->unidad}}</td>
+                            <td>{{$organizer->provincia}}</td>
+                            <td>{{$organizer->detalle}}</td>
                             <td>
-                                <a href="{{route('admin.units.edit', $unit)}}" class="btn btn-outline-primary">
+                                <a href="{{route('admin.organizers.edit', $organizer)}}" class="btn btn-outline-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
@@ -52,7 +50,7 @@
                                 </a>                                 
                             </td>
                             <td>
-                                <form action="{{route('admin.units.destroy', $unit)}}" method="POST">
+                                <form action="{{route('admin.organizers.destroy', $organizer)}}" method="POST">
                                     @method('delete')
                                     @csrf
                                     <button type="submit" value="Eliminar" class="btn btn-outline-danger">
@@ -63,8 +61,6 @@
                                 </form>
                             </td>
                         </tr>
-                        @endif   
-                    @endforeach
                 @endforeach
             </tbody>
         </table><br>

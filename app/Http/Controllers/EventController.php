@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin\Event;
-use App\Models\Student;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
-        $events = Event::all();
-
-        return view('admin.students.index', compact('students', 'events'));
+        //
     }
 
     /**
@@ -29,8 +24,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $event = Event::all();
-        return view('admin.students.create');
+        //
     }
 
     /**
@@ -50,7 +44,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
         //
     }
@@ -61,7 +55,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
         //
     }
@@ -73,7 +67,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
         //
     }
@@ -84,7 +78,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
         //
     }
