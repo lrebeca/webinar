@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Admin\Event;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Certificate extends Model
+class Detail extends Model
 {
     use HasFactory;
-    
+
+    protected $table = 'details';
+
+    protected $fillable = ['detalle', 'link', 'id_evento'];
 
     //Relacion uno a muchos inversa con evento
 
@@ -17,9 +19,4 @@ class Certificate extends Model
         return $this->belongsTo(Event::class);
     }
 
-    //Relacion uno a uno inversa con Estudiantes 
-
-    public function student(){
-        return $this->belongsTo(Student::class);
-    }
 }

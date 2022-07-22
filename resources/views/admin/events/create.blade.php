@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::open(['route'=>'admin.events.store','enctype' => 'multipart/form-data' ,'files' => true]) !!}
+            {!! Form::open(['route'=>'admin.events.store','files' => true]) !!}
 
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
 

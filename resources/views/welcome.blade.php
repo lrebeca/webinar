@@ -100,7 +100,7 @@
         @endforeach
 
         {{-- <div>
-            {{$events->links}}
+            {!! $events->links() !!}
         </div> --}}
     </div>
 

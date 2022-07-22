@@ -7,6 +7,7 @@ use App\Http\Requests\StudentRequest;
 use App\Models\Admin\Event;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -14,11 +15,12 @@ class StudentController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function index()
     {
-        //
-        
+        $event = Event::all();
+
+        return view('registers.index');        
     }
 
     /**
@@ -43,15 +45,11 @@ class StudentController extends Controller
         //
         $student = $request->all();
 
-        // if($request->hasFile('img_deposito'))
-        // {
-        //     $student['img_deposito'] = $request->file('img_deposito')->store('depositos');
-        // }
         Student::create($student);
         
-        //return $student;
+        return $student;
         //return view('registers.ingresar', compact('student'));
-        return redirect()->route('students.mostrar', $student);
+        //return redirect()->route('events.show')->with('info', 'Se confirmara su inscripcion a su correo o whatsapp');
     }
 
     /**
@@ -60,15 +58,11 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function mostrar(Student $student)
-    {
-        //
-        return $student;
-        //return view('registers.index', compact('student'));
-    }
     public function show(Student $student)
     {
-        //
+        
+        
+
         return $student;
         //return view('registers.index', compact('student'));
     }
@@ -105,5 +99,39 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function ingresar(Request $request){
+
+        $id_event = $request->get('id_evento');
+        //$event = Event::where('id','=', $id_event)->toArray();
+        $event = DB::table('events')->find($id_event);
+
+        $request->validate([
+            'email2' => 'required',
+            'carnet_identidad2' => 'required'
+        ],
+        [
+            'email2.required'=>'Ingrese Email',
+            'carnet_identidad2.required'=>'Ingrese Contraseña'
+        ]);
+
+        $email=$request->get('email2');
+        $query=Student::where('email','=',$email)->get();
+        if($query->count() !=0){
+            $hashp=$query[0]->carnet_identidad;
+            $password=$request->get('carnet_identidad2');
+            if($password==$hashp){
+                return view('registers.evento', compact('event'));
+            }
+            else
+            {
+                return back()->withErrors(['carnet_identidad2'=>'Contraseña no es Valida'])->withInput([request('carnet_identidad2')]);
+            }
+        }
+        else
+        {
+            return back()->withErrors(['email2'=>'Email no Valido'])->withInput([request('email2')]);
+        }
     }
 }

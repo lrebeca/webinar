@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DetailController;
+use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\ExhibitorController;
 use Illuminate\Support\Facades\Route;
@@ -15,3 +17,5 @@ Route::resource('organizers', OrganizerController::class)->names('admin.organize
 Route::resource('events', EventController::class)->names('admin.events'); 
 Route::resource('exhibitors', ExhibitorController::class)->names('admin.exhibitors');
 Route::resource('students', StudentController::class)->names('admin.students'); 
+Route::resource('details', DetailController::class)->names('admin.details'); 
+Route::resource('documents', DocumentController::class)->names('admin.documents');

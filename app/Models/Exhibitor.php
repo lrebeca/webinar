@@ -10,6 +10,8 @@ class Exhibitor extends Model
 {
     use HasFactory;
 
+    protected $table = 'exhibitors';
+
     protected $fillable = ['suffix','nombre','apellido_paterno','apellido_materno','email','direccion','num_celular','descripcion'];
 
     public function getRouteKeyName()

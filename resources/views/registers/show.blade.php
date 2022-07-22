@@ -61,7 +61,15 @@
     </div>        
 </div>
 
-{{-- Div del contenedor de los formukarios  --}}
+    @if (session('info'))
+    <div class="alert alert-success">
+        <strong>
+            {{session('info')}}
+        </strong>
+    </div>
+    @endif
+
+{{-- Div del contenedor de los formularios  --}}
 <div class="container">
     {{-- Boton para seleccionar si es estudiante o profecional  --}}
         @if ($event->costo_student > 0 && $event->costo_prof > 0)
@@ -441,37 +449,57 @@
 
 {{-- Ingreso al evento para los registrados --}}
 
+
 <div class="container">
-    <h3>Si ya te registraste al evento ingresa tus datos</h3>
 
-    {!! Form::open(['route'=>'students.store','enctype' => 'multipart/form-data' ,'files' => true]) !!}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Registrarse
+    </button>
 
-            {!! Form::hidden('id_evento', $event->id) !!}
-                           
-            {{-- Email --}}
-            <div class="form-group">
-                {!! Form::label('email', 'Email') !!}
-                {!! Form::text('email', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                
+                {!! Form::open(['route'=>'ingresar']) !!}
 
-            @error('email')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-
-            {{-- Numero C.I. --}}
-            <div class="form-group">
-                {!! Form::label('carnet_identidad', 'Numero C.I.') !!}
-                {!! Form::password('carnet_identidad', null, ['class' => 'form-control', 'placeholder'=>'Ingrese su numero de carnet de identidad ']) !!}
+                {!! Form::hidden('id_evento', $event->id) !!}
+                               
+                {{-- Email --}}
+                <div class="form-group">
+                    {!! Form::label('email2', 'Email') !!}
+                    {!! Form::text('email2', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
+                </div>
+    
+                @error('email2')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+    
+                {{-- Numero C.I. --}}
+                <div class="form-group">
+                    {!! Form::label('carnet_identidad2', 'Numero C.I.') !!}
+                    {!! Form::password('carnet_identidad2', null, ['class' => 'form-control', 'placeholder'=>'Ingrese su numero de carnet de identidad ']) !!}
+                </div>
+    
+                @error('carnet_identidad2')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
-
-            @error('carnet_identidad')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-
-    <br>
-    {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-primary']) !!}
-
-    {!! Form::close() !!}
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
+        </div>
+    </div>
+    
 </div>
 
 {{-- Js de los botones --}}

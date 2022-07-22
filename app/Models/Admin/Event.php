@@ -2,7 +2,10 @@
 
 namespace App\Models\Admin;
 
-use App\Models\Image;
+use App\Models\Certificate;
+use App\Models\Detail;
+use App\Models\Document;
+use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +34,30 @@ class Event extends Model
 
     public function students(){
         return $this->hasMany(Student::class);
+    }
+
+    //Relacion uno a muchos con certificados
+
+    public function certificates(){
+        return $this->hasMany(Certificate::class);
+    }
+
+     // Relacion uno a uno con organizador
+
+     public function organizer(){
+        return $this->hasOne(Organizer::class);
+    }
+
+    //Relacion uno a muchos con Detalles (links)
+
+    public function details(){
+        return $this->hasMany(Detail::class);
+    }
+
+    //Relacion uno a muchos con Documentos
+
+    public function documents(){
+        return $this->hasMany(Document::class);
     }
 
 }

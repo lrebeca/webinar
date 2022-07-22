@@ -16,7 +16,7 @@
 @stop
 
 @section('content_header')
-    <h1>Lista de categorias</h1>
+    <h1>Lista de Eventos</h1>
 @stop
 
 @section('content')
@@ -107,6 +107,9 @@
                                                 </svg>
                                             </button>
                                         </form>
+                                        <br>
+                                        Agregar información, links y/o documentos para el evento <br>
+                                        <a href="{{route('admin.details.create', $event)}}" class="btn btn-primary">Agregar</a>
                                     </td>
                                 </tr>
                                 @endif

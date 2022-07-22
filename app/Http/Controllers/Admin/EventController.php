@@ -53,6 +53,15 @@ class EventController extends Controller
         if($request->hasFile('imagen')){
             $event['imagen'] = $request->file('imagen')->store('events');  
         }
+
+        // if($imagen = $request->file('imagen'))
+        // {
+        //     $rutaGuardarImg = $imagen->store('events');
+        //     $imagenEvent = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+        //     $imagen->move($rutaGuardarImg, $imagenEvent);
+        //     $event['imagen'] = "$imagen";
+        // }
+
         Event::create($event);
 
         return redirect()->route('admin.events.index', $event)->with('info','El evento se creo con exito!!');
@@ -111,7 +120,7 @@ class EventController extends Controller
                 $event->create(['imagen'=> $image]);
             }
         }
-        //return $event;
+        return $event;
         
         return redirect()->route('admin.events.index', $event)->with('info','El evento se actualizo con exito');
     }

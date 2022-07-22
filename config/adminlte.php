@@ -259,12 +259,67 @@ return [
             'label_color' => 'success',
         ],
         ['header' => 'ADMINISTRADOR'],
+
+        //Esto es el multi nivel
         [
-            'text' => 'Eventos',
-            'route'  => 'admin.events.index',
-            'icon' => 'fas fa-fw fa-user',
-            'active' => ['admin/events*'],
+            'text'    => 'Eventos',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text'  => 'Eventos',
+                    'route'  => 'admin.events.index',
+                    'icon' => 'fas fa-fw fa-user',
+                    //'active' => ['admin/events*'],
+                ],
+                [
+                    'text' => 'Mas detalles',
+                    'submenu' => [
+                        [
+                            'text' => 'Info. Eventos',
+                            'route'  => 'admin.details.index',
+                            //'icon' => 'fas fa-fw fa-user',
+                            //'active' => ['admin/events*'],
+                        ],
+                        [
+                            'text'=> 'Documentos',
+                            'route' => 'admin.documents.index',
+                        ],
+                    ]
+                ],
+                // [
+                //     'text'    => 'level_one',
+                //     'url'     => '#',
+                //     'submenu' => [
+                //         [
+                //             'text' => 'level_two',
+                //             'url'  => '#',
+                //         ],
+                //         [
+                //             'text'    => 'level_two',
+                //             'url'     => '#',
+                //             'submenu' => [
+                //                 [
+                //                     'text' => 'level_three',
+                //                     'url'  => '#',
+                //                 ],
+                //                 [
+                //                     'text' => 'level_three',
+                //                     'url'  => '#',
+                //                 ],
+                //             ],
+                //         ],
+                //     ],
+                // ],
+                // [
+                //     'text' => 'level_one',
+                //     'url'  => '#',
+                // ],
+            ],
         ],
+
+        //Fin multinivel
+        ['header' => '------------------------'],
+
         [
             'text' => 'Expositores',
             'route'  => 'admin.exhibitors.index',
@@ -288,45 +343,7 @@ return [
             'active' => ['admin/organizers*'],
         ],
 
-        // Esto es el multi nivel
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
+        
         // ['header' => 'labels'],
         // [
         //     'text'       => 'important',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SeccionStudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +43,8 @@ Route::get('events/{event}',[EventController::class,'show'])->name('events.show'
 
 
 Route::resource('students', StudentController::class)->names('students'); 
+
+Route::post('/ingresar', [StudentController::class, 'ingresar'])->name('ingresar');
+
+
+//Route::post('/ingresar', [SeccionStudentController::class, 'ingresar'])->name('ingresar');
