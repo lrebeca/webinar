@@ -1,39 +1,9 @@
-@extends('layouts.header')
-
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> -->
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<html lang="en">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @extends('layouts.header')
+    <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}" type="image/x-ico">
 
-    <style>
-        .banner-image{
-            background-image: url('asset/img/portada.jpg');
-            background-color: rgba(0, 0, 0, 0.6);
-            background-size: cover;
-            background-position: center;
-            height: 85vh;
-        }
-        .image-wrapper{
-            position: relative;
-            padding-bottom: 56.25%;
-        }
-        .image-wrapper img{
-            position: absolute;
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-
-</head>
 <body>
 
 <div class="banner-image d-flex justify-content-center align-items-center">
@@ -46,6 +16,17 @@
         <!--  bienvenida   -->
 <div class="alert alert-dark text-center">
         <h1>BIENVENIDO A LA PAGINA DE ACTIVIDADES</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-md-1">
+        <h2 class="has-text-aling-left">
+            <strong>Eventos Disponibles actualmente</strong>
+        </h2>
+        <p class="has-text-aling-left">
+            "Hecha un vistazo a nuestro catalogo de eventos disponibles a los cuales puedes registrarte, para poder aumentar tus conocimientos"
+        </p>
+    </div>
 </div>
 
 <!-- inicio de seccion -->
@@ -69,16 +50,16 @@
                         <h5 class="card-title text-center">
                             {{$event->evento}}
                         </h5>
-                        <p class="card-text">
+                        {{-- <p class="card-text">
                             {!!$event->detalle!!}
-                        </p>
+                        </p> --}}
                     </div>
                 </div>
                 <div class="card-text text-center">
                     @if ($event->costo_student > 0 && $event->costo_prof > 0)
                         <h6>Costo para Estudiantes</h6>
                         {{$event->costo_student}}
-                        <h6>Costo para Profecionales</h6>
+                        <h6>Costo para Profesionales</h6>
                         {{$event->costo_prof}}
                     @else
                         <h5>Evento gratuito</h5>
@@ -91,7 +72,7 @@
 
                     <br><br>
 
-                    <a href="{{route('events.show', $event)}}" class="btn btn-primary">Inscripción</a>
+                    <a href="{{route('events.show', $event)}}" class="btn btn-primary">Ver evento</a>
                     {{-- {{ $event->id }} --}}
 
                 </div>
@@ -108,6 +89,7 @@
 <!-- Fin de la seccion -->
 
 
+
 </body>
+    @extends('layouts.footer')
 </html>
-@extends('layouts.footer')

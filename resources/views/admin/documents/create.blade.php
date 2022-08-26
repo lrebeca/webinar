@@ -43,15 +43,11 @@
             <!-- Documento  -->
 
             <div class="row">
-                <div class="col">
-                    <div class="image-wrapper">
-                        <iframe id="img" src="{{asset('asset/img/DSC_0006.jpg')}}" frameborder="0"></iframe>
-                    </div>
-                </div>
+
                 <div class="col">
                     <div class="form-group">
-                        {!! Form::label('documento', 'Docuemento') !!} <br>
-                        {!! Form::file('documento', ['class' => 'form-control-file']) !!}
+                        {!! Form::label('documento', 'Documento') !!} <br>
+                        {!! Form::file('documento', ['accept'=>'.doc,.pdf,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'class' => 'form-control-file']) !!}
                     </div>
                     @error('documento')
                         <span class="text-danger">{{$message}}</span>
@@ -70,54 +66,10 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <style>
-        .image-wrapper{
-            position: relative;
-            padding-bottom: 56.25%;
-        }
-        .image-wrapper img{
-            position: absolute;
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-        #costos{
-            display: none;
-        }
-    </style>
 @stop
 
 @section('js')
     <script> console.log('Hi!'); </script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
-
-    <script>
-        ClassicEditor
-        .create( document.querySelector( '#detalle' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-
-        // Para cambiar la imagen
-        document.getElementById("imagen").addEventListener('change', cambiarImagen);
-
-        function cambiarImagen(event){
-            var file = event.target.files[0];
-
-            var reader = new FileReader();
-            reader.onload = (event) => {
-                document.getElementById("img").setAttribute('src', event.target.result);
-            }
-            reader.readAsDataURL(file);
-        }
-        
-        //Para mostrar los costos 
-        function mostrarCosto(){
-            document.getElementById('costos').style.display = 'block'; 
-        }
-        function ocultarCosto(){
-            document.getElementById('costos').style.display = 'none'; 
-        }
-    </script>
 
 @stop

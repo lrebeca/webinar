@@ -133,7 +133,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-danger elevation-4', // El danger es el color activo en este caso el rojo podemos cambiar
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -235,7 +235,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav' => true,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -255,10 +255,26 @@ return [
         [
             'text'        => 'Panel',
             'route'         => 'admin.index',
-            'icon'        => 'far fa-fw fa-calendar-check',
+            'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label_color' => 'success',
+            'can'         => 'Ver dashboard'
+        ],
+        [
+            'text' => 'Roles',
+            'route' => 'admin.roles.index',
+            'icon' => 'fas fa-fw fa-users-cog',
+            'can' => 'Leer Role',
+            'active' => ['admin/roles*']
         ],
         ['header' => 'ADMINISTRADOR'],
+
+        [
+            'text' => 'Usuarios ',
+            'route'  => 'admin.users.index',
+            'icon' => 'fas fa-fw fa-users',
+            'can'   => 'Leer Usuarios',
+            'active' =>['admin/users*']
+         ],
 
         //Esto es el multi nivel
         [
@@ -269,78 +285,65 @@ return [
                     'text'  => 'Eventos',
                     'route'  => 'admin.events.index',
                     'icon' => 'fas fa-fw fa-user',
-                    //'active' => ['admin/events*'],
+                    'can'   => 'Leer Eventos',
+                    'active' => ['admin/events*'],
                 ],
                 [
                     'text' => 'Mas detalles',
+                    'icon' => 'fas fa-fw fa-plus', 
                     'submenu' => [
                         [
                             'text' => 'Info. Eventos',
                             'route'  => 'admin.details.index',
-                            //'icon' => 'fas fa-fw fa-user',
-                            //'active' => ['admin/events*'],
+                            //'can'   => 'admin.details.index',
                         ],
                         [
                             'text'=> 'Documentos',
                             'route' => 'admin.documents.index',
+                            //'can' => 'admin.documents.index',
                         ],
                     ]
                 ],
-                // [
-                //     'text'    => 'level_one',
-                //     'url'     => '#',
-                //     'submenu' => [
-                //         [
-                //             'text' => 'level_two',
-                //             'url'  => '#',
-                //         ],
-                //         [
-                //             'text'    => 'level_two',
-                //             'url'     => '#',
-                //             'submenu' => [
-                //                 [
-                //                     'text' => 'level_three',
-                //                     'url'  => '#',
-                //                 ],
-                //                 [
-                //                     'text' => 'level_three',
-                //                     'url'  => '#',
-                //                 ],
-                //             ],
-                //         ],
-                //     ],
-                // ],
-                // [
-                //     'text' => 'level_one',
-                //     'url'  => '#',
-                // ],
             ],
         ],
-
-        //Fin multinivel
-        ['header' => '------------------------'],
-
-        [
-            'text' => 'Expositores',
-            'route'  => 'admin.exhibitors.index',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'participantes',
-            'route'  => 'admin.students.index',
-            'icon' => 'fas fa-fw fa-certificate',
-        ],
-        [
-            'text' => 'Certificados',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-file',
-        ],
-        ['header' => '------------------------'],
         [
             'text' => 'Organizadores',
             'route'  => 'admin.organizers.index',
             'icon' => 'fas fa-fw fa-user',
             'active' => ['admin/organizers*'],
+            //'can'   => 'admin.organizers.index',
+        ],
+
+        //Fin multinivel
+        ['header' => 'OPCIONES DE PARTICIPANTES'],
+
+        [
+            'text' => 'Pendientes de aprobación',
+            'route'  => 'admin.students.index',
+            'icon' => 'fas fa-fw fa-certificate',
+        ],
+        [
+            'text' => 'Aprobados',
+            //'route'  => 'admin.students.aprobado',
+            'icon' => 'fas fa-fw fa-certificate',
+        ],
+        [
+            'text' => 'Rechazados',
+            //'route'  => 'admin.students.rechazado',
+            'icon' => 'fas fa-fw fa-certificate',
+        ],
+        ['header' => 'CERTIFICACIONES '],
+        [
+            'text' => 'Certificados',
+            'route' => 'admin.certificates.index',
+            'icon' => 'fas fa-fw fa-file',
+            //'can'   => 'admin.certificates.index',
+        ],
+        [
+            'text' => 'Imagenes',
+            'route' => 'admin.images.index',
+            'icon' => 'fas fa-fw fa-file',
+            //'can'   => 'admin.certificates.index',
         ],
 
         
@@ -398,7 +401,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

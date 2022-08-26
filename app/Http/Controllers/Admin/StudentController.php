@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Event;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -14,10 +15,12 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(  )
     {
-        $students = Student::all();
+        $students = Student::where('progreso', "enviado")->get();
         $events = Event::all();
+
+       // return $students;
 
         return view('admin.students.index', compact('students', 'events'));
     }
@@ -50,7 +53,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Student $student)
     {
         //
     }
@@ -61,9 +64,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Student $student)
     {
-        //
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
@@ -73,7 +76,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -84,8 +87,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()->route('admin.students.index')->with('info', 'El paricipante fue eliminado');
     }
 }

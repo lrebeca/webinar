@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Eventos')
 
 @section('css')
 
@@ -57,13 +57,13 @@
                 </thead>
                 <tbody>
                     @foreach ($events as $event)
-                        @foreach ($exhibitors as $exhibitor)
+                        @foreach ($users as $user)
                             @foreach ($organizers as $organizer)
-                                @if ($event->id_expositor == $exhibitor->id && $event->id_organizador == $organizer->id)
+                                @if ($event->user_id == $user->id && $event->id_organizador == $organizer->id)
                                 <tr>
                                     <td>{{$event->id}}</td>
                                     <td>{{$event->evento}}</td>
-                                    <td style="width: 80%">{!!$event->detalle!!}</td>
+                                    <td>{!!$event->detalle!!}</td>
                                     <td>{{$event->costo_student}}</td>
                                     <td>{{$event->costo_prof}}</td>
                                     <td>{{$event->fecha_inicio}}</td>
@@ -86,7 +86,7 @@
                                         </a>
                                     </td>
                                     <td>{{$event->estado}}</td>
-                                    <td>{{$exhibitor->suffix}} {{$exhibitor->nombre}} {{$exhibitor->apellido_paterno}} {{$exhibitor->apellido_materno}}</td>
+                                    <td>{{$user->name}}</td>
                                     <td>{{$organizer->unidad}} {{$organizer->provincia}}</td>
                                     <td>
                                         <br> Editar: 
@@ -109,7 +109,8 @@
                                         </form>
                                         <br>
                                         Agregar información, links y/o documentos para el evento <br>
-                                        <a href="{{route('admin.details.create', $event)}}" class="btn btn-primary">Agregar</a>
+                                        <a href="{{route('admin.details.create', $event)}}" class="btn btn-primary">Agregar links</a>
+                                        <a href="{{route('admin.documents.create', $event)}}" class="btn btn-primary">Agregar Documento</a>
                                     </td>
                                 </tr>
                                 @endif

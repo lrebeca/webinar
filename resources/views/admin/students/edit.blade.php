@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Editar la unidad {{$organizer->unidad}} </h1>
+    <h1>Editar la unidad  </h1>
 @stop
 
 @section('content')
@@ -18,41 +18,160 @@
 
     <div class="card">
         <div class="card-body">
-            {!! Form::model($organizer, ['route'=>['admin.organizers.update', $organizer], 'method'=> 'put']) !!}
+            {!! Form::model($student, ['route'=>['admin.students.update', $student], 'files' => true, 'method' => 'put']) !!}
             
-                {{-- Unidad --}}
+                {{-- Nombre Y apellidos --}}
+
                 <div class="form-group">
-                    {!! Form::label('unidad', 'Unidad') !!}
-                    {!! Form::text('unidad', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad']) !!}
+                    {!! Form::label('nombre', 'Nombre') !!}
+                    {!! Form::text('nombre', null, ['class' => '', 'placeholder'=>'Nombre']) !!}
+
+                    {!! Form::label('apellido_paterno', 'Apellido Paterno') !!}
+                    {!! Form::text('apellido_paterno', null, ['class' => '', 'placeholder'=>'Primer apellido ']) !!}
+
+                    {!! Form::label('apellido_materno', 'Apellido Materno') !!}
+                    {!! Form::text('apellido_materno', null, ['class' => '', 'placeholder'=>'Segundo apellido']) !!}
                 </div>
 
-                @error('unidad')
+                @error('nombre')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
 
-                {{-- Provincia --}}
-                <div class="form-group">
-                    {!! Form::label('provincia', 'Provincia') !!}
-                    {!! Form::text('provincia', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la provincia']) !!}
-                </div>
-
-                @error('provincia')
+                @error('apellido_paterno')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+                    
+                @error('apellido_materno')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
 
-
-                {{-- Detalle --}}
+                {{-- Email --}}
                 <div class="form-group">
-                    {!! Form::label('detalle', 'Detalle') !!}
-                    {!! Form::text('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el detalle ']) !!}
+                    {!! Form::label('email', 'Email') !!}
+                    {!! Form::text('email', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
                 </div>
 
-                @error('detalle')
+                @error('email')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
-                <br>
+
+                {{-- Carnet Identidad --}}
+
+                <div class="form-group">
+                    {!! Form::label('carnet_identidad', 'Carnet de Identidad') !!}
+                    {!! Form::text('carnet_identidad', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
+                </div>
+
+                @error('carnet_identidad')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
+                @if ($student->carnet_universitario != null)
+
+                    {{-- Carnet Universitario --}}
+
+                    <div class="form-group">
+                        {!! Form::label('carnet_universitario', 'Carnet Universitario') !!}
+                        {!! Form::text('carnet_universitario', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
+                    </div>
+
+                    @error('carnet_universitario')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+
+                @endif
+
+                {{-- Numero de celular --}}
+
+                <div class="form-group">
+                    {!! Form::label('n_celular', 'Numero de celular') !!}
+                    {!! Form::text('n_celular', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
+                </div>
+
+                @error('n_celular')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
+                @if ($student->n_celular2 != null)
+
+                    {{-- Numero de celular 2 --}}
+
+                    <div class="form-group">
+                        {!! Form::label('n_celular2', 'Numero de celular de referencia') !!}
+                        {!! Form::text('n_celular2', null, ['class' => 'form-control', 'placeholder'=>'Example@gmail.com']) !!}
+                    </div>
     
-            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+                    @error('n_celular2')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+
+                @endif
+
+                <!-- Imagen  -->
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="image-wrapper">
+                            @isset($student->img_deposito)
+                                <img id="img" src="{{Storage::url($student->img_deposito)}}"  alt="">
+                            @else
+                                <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}"  alt="">
+                            @endisset
+                        </div> 
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label('img_deposito', 'Imagen') !!} <br>
+                            {!! Form::file('img_deposito', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
+                        </div>
+                        @error('img_deposito')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- estado del participante -->
+
+                <div class="form-group">
+                    Estado: &nbsp;<br>
+                    {!! Form::label('estado', 'Estudiante') !!}
+                    {!! Form::radio('estado', 'estudiante' )!!}
+                    {!! Form::label('estado', 'Profecional') !!}
+                    {!! Form::radio('estado', 'profecional') !!}
+                </div>
+
+                @error('estado')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
+                {{-- Progreso de inscripcion  --}}
+                <div class="form-group">
+                    Progreso: &nbsp;<br>
+                    {!! Form::label('progreso', 'Enviado') !!}
+                    {!! Form::radio('progreso', 'enviado' )!!}
+                    {!! Form::label('progreso', 'Aprobar') !!}
+                    {!! Form::radio('progreso', 'aprobado') !!}
+                    {!! Form::label('progreso', 'Rechazar') !!}
+                    {!! Form::radio('progreso', 'rechazado') !!}
+                </div>
+
+                @error('estado')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
+                {{-- costo del evento --}}
+
+                <div class="form-group">
+                    {!! Form::label('costo_e', 'Costo del Evento') !!}
+                    {!! Form::number('costo_e', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el costo para estudiantes']) !!}
+                </div>
+
+                @error('costo_e')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
+    
+            {!! Form::submit('Actualizar Registro', ['class' => 'btn btn-primary']) !!}
     
             {!! Form::close() !!}
         </div>
@@ -62,8 +181,43 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        #costos{
+            display: none;
+        }
+    </style>
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script> console.log('Hi!');  </script>
+
+//    Para la imagen
+
+<script>
+    document.getElementById("img_deposito").addEventListener('change', cambiarImagen);
+
+    function cambiarImagen(event){
+        var file = event.target.files[0];
+
+        var reader = new FileReader();
+        reader.onload = (event) => {
+            document.getElementById("img").setAttribute('src', event.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
+</script>
+        
+
+   
+
 @stop

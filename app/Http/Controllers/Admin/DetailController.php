@@ -87,6 +87,7 @@ class DetailController extends Controller
      */
     public function update(Request $request, Detail $detail)
     {
+        return $request->all();
         $request->validate(
             [
                 'detalle' => 'required',

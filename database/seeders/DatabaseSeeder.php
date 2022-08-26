@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Admin\Event;
+use App\Models\Detail;
+use App\Models\Document;
 use App\Models\Exhibitor;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -17,17 +19,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+
+        Storage::deleteDirectory('events');
+        Storage::deleteDirectory('depositos');
 
         Storage::makeDirectory('events');
         Storage::makeDirectory('depositos');
 
-        // \App\Models\User::factory(10)->create();
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(OrganizerSeeder::class);
-        Exhibitor::factory(20)->create();
         Event::factory(20)->create();
-        //$this->call(EventSeeder::class);
         Student::factory(150)->create();
+        Detail::factory(30)->create();
+        Document::factory(30)->create();    
+ 
     }
 }

@@ -21,7 +21,7 @@ class CreateDetailsTable extends Migration
             //Llave foranea
             $table->unsignedBigInteger('id_evento');
             // Restrigcion de llave foranea
-            $table->foreign('id_evento')->references('id')->on('events');
+            $table->foreign('id_evento')->references('id')->on('events')->onDelete('cascade');
 
             $table->timestamps();
         });

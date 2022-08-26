@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Exhibitor;
+use App\Models\Admin\Event;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,8 +17,7 @@ class CertificateFactory extends Factory
     {
         return [
             'detalle' => $this->faker->paragraph(1),
-            'id_evento' => Exhibitor::all()->random()->id,
-            'id_participante' => Student::all()->random()->id
+            'id_evento' => Event::all()->random()->id,
         ];
     }
 }

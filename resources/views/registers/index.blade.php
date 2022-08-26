@@ -1,3 +1,0 @@
-Hola estudiante
-
-{{$student}}

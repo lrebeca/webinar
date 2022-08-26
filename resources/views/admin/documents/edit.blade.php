@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::model($document, ['route'=>['admin.documents.store','enctype' => 'multipart/form-data' ,'files' => true, $document], 'method' => 'put']) !!}
+            {!! Form::model($document, ['route'=>['admin.documents.update', $document], 'files' => true, 'method' => 'put']) !!}
 
              <!-- Documentos -->
              <div class="form-group">
@@ -37,16 +37,12 @@
 
             <!-- Documento  -->
 
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="image-wrapper">
-                        <iframe id="img" src="{{asset('asset/img/DSC_0006.jpg')}}" frameborder="0"></iframe>
-                    </div>
-                </div>
+            <div class="row">
+
                 <div class="col">
                     <div class="form-group">
-                        {!! Form::label('documento', 'Imagen') !!} <br>
-                        {!! Form::file('documento', ['class' => 'form-control-file']) !!}
+                        {!! Form::label('documento', 'Documento') !!} <br>
+                        {!! Form::file('documento', ['accept'=>'.doc,.pdf,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'class' => 'form-control-file']) !!}
                     </div>
                     @error('documento')
                         <span class="text-danger">{{$message}}</span>

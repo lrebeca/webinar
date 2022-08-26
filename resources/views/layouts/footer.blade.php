@@ -1,4 +1,6 @@
 
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 <footer class="bg-dark text-white pt-2 pb-4">
     <div class="container text-md-left">
         <div class="row text-md-left">
@@ -13,7 +15,7 @@
                 <p>Telf. (591)(4) 6440914<br>
                 <a href="mailto:#">decanato@usfx.bo</a><br><br>
                     Calle Grau Nº 117
-                </p>
+                </p> 
             </div>
             <!-- tercera columna -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-2">
@@ -48,4 +50,3 @@
         </div>
     </div>
 </footer>
-</html>

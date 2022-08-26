@@ -30,24 +30,24 @@
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th>Email</th>
+                {{-- <th>Email</th>
                 <th>Dirección</th>
                 <th>Numero Celular</th>
                 <th>Descripción</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
+                <th>Eliminar</th> --}}
             </thead>
             <tbody>
-                @foreach ($exhibitors as $exhibitor)
+                @foreach ($users as $user)
                     <tr>
-                        <td>{{$exhibitor->id}}</td>
-                        <td>{{$exhibitor->suffix}} {{$exhibitor->nombre}}</td>
-                        <td>{{$exhibitor->apellido_paterno}} {{$exhibitor->apellido_materno }}</td>
-                        <td>{{$exhibitor->email}}</td>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->name}} </td>
+                        <td>{{$user->email }}</td>
+                        {{-- <td>{{$exhibitor->email}}</td>
                         <td>{{$exhibitor->direccion}}</td>
                         <td>{{$exhibitor->num_celular}}</td>
-                        <td>{{$exhibitor->descripcion}}</td>
-                        <td>
+                        <td>{{$exhibitor->descripcion}}</td> --}}
+                        {{-- <td>
                             <a href="{{route('admin.exhibitors.edit', $exhibitor)}}" class="btn btn-outline-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
@@ -65,7 +65,7 @@
                                     </svg>
                                 </button>
                             </form>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>

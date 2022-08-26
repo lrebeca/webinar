@@ -1,3 +1,4 @@
+<link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}" type="image/x-ico">
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">

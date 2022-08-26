@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SeccionStudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,20 +29,17 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/',[EventController::class,'welcome'])->name('welcome');
+//Route::get('/',[EventController::class,'welcome'])->name('welcome');
+Route::get('/',[EventController::class,'index'])->name('index');
 
 Route::get('events/{event}',[EventController::class,'show'])->name('events.show');
-
-//Route::resource('registers', RegisterController::class)->names('registers'); 
-
-//Route::get('registers/{event}',[RegisterController::class,'show'])->name('registers.show');
-
-//Route::post('registers',[RegisterController::class,'store'])->name('registers.store');
 
 
 Route::resource('students', StudentController::class)->names('students'); 
 
-Route::post('/ingresar', [StudentController::class, 'ingresar'])->name('ingresar');
+// Route::post('students/store', [StudentController::class, 'store'])->name('students.store');
+Route::get('students/{event}', [StudentController::class], 'show')->name('students.show');
+//Route::post('/ingresar', [StudentController::class, 'ingresar'])->name('ingresar');
+Route::post('/ingresar', [EventController::class, 'ingresar'])->name('ingresar');
 
-
-//Route::post('/ingresar', [SeccionStudentController::class, 'ingresar'])->name('ingresar');
+Route::get('certificado/{student}', [StudentController::class, 'certificado'])->name('certificado');

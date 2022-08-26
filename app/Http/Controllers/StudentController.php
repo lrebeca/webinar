@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Admin\Event;
+use App\Models\Certificate;
+use App\Models\Detail;
+use App\Models\Document;
+use App\Models\Image;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -18,9 +23,10 @@ class StudentController extends Controller
      */ 
     public function index()
     {
-        $event = Event::all();
+        //s$event = Event::all();
 
-        return view('registers.index');        
+        //return $student;
+        return view('registers.show');        
     }
 
     /**
@@ -42,14 +48,26 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        //
+        $id_event = $request->id_evento;
+
+        $event = DB::table('events')->find($id_event);
+
+        //$event = (array)$evento; 
+        
         $student = $request->all();
+
+        if($request->hasFile('img_deposito'))
+        {
+            //651$student['img_deposito'] = Storage::put('depositos', $request->file('img_depositos'));
+            $student['img_deposito'] = $request->file('img_deposito')->store('depositos');
+        }
 
         Student::create($student);
         
-        return $student;
-        //return view('registers.ingresar', compact('student'));
-        //return redirect()->route('events.show')->with('info', 'Se confirmara su inscripcion a su correo o whatsapp');
+        //return $student;
+        //return $evento;
+        return view('registers.show', compact('student', 'event'))->with('info', 'El estudiante esta en espera de la confirmacion');
+        //return redirect()->route('events.show', $event)->with('info', 'Se confirmara su inscripcion a su correo o whatsapp');
     }
 
     /**
@@ -63,8 +81,8 @@ class StudentController extends Controller
         
         
 
-        return $student;
-        //return view('registers.index', compact('student'));
+        return 'Esta en le show';
+        //return view('registers.show', compact('student'));
     }
 
     /**
@@ -75,7 +93,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('registers.show', compact('student'));
     }
 
     /**
@@ -100,13 +118,26 @@ class StudentController extends Controller
     {
         //
     }
+    public function certificado(Student $student)
+    {
+        //return $student;
+        $images = Image::all();
+        $certificates = Certificate::all();
+        
+        return view('certificate.index', compact('student', 'images', 'certificates')); 
+    }
 
-    public function ingresar(Request $request){
+    public function ingresar(Request $request, Student $student){
 
-        $id_event = $request->get('id_evento');
-        //$event = Event::where('id','=', $id_event)->toArray();
+        return $student->id_evento;
+
+        $id_event = $request->id_evento;
         $event = DB::table('events')->find($id_event);
+        $detail = DB::table('details')->find($id_event);
+        //$document = Document::all();
+        //$detail = Detail::where('id_evento','=', $id_event)->get();
 
+        
         $request->validate([
             'email2' => 'required',
             'carnet_identidad2' => 'required'
@@ -117,12 +148,23 @@ class StudentController extends Controller
         ]);
 
         $email=$request->get('email2');
-        $query=Student::where('email','=',$email)->get();
-        if($query->count() !=0){
-            $hashp=$query[0]->carnet_identidad;
+        $student=Student::where('email','=',$email)->get();
+        $student2 = DB::table('students')->find($email);
+        $document = Document::where('id_evento','=',$id_event)->get();
+
+        if($student->count() !=0){
+            $hashp=$student[0]->carnet_identidad;
             $password=$request->get('carnet_identidad2');
             if($password==$hashp){
-                return view('registers.evento', compact('event'));
+
+                if($id_event == $student[0]->id_evento)
+                { 
+                    return view('registers.evento', compact('event', 'document', 'detail', 'student2'));
+                }
+                else
+                {
+                    return back()->withErrors(['id_evento'=>'El participante no se registro en este evento !!!'])->withInput([request('id_evento')]);
+                }
             }
             else
             {

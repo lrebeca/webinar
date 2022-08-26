@@ -13,13 +13,13 @@ class EventRequest extends FormRequest
      */
     public function authorize()
     {
-        //return true;
+        return true;
 
-        if($this->user_id == auth()->user()->id){
-            return true;
-        }else{
-            return false;
-        }
+        // if($this->user_id == auth()->user()->id){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
     }
 
     /**
@@ -31,13 +31,13 @@ class EventRequest extends FormRequest
     {
         $rules = [
             'evento' => 'required',
-            'estado' => 'required|in:1,2'
+            'estado' => 'required|in:1,2',
         ];
 
         if($this->estado == 2){
             $rules = array_merge($rules, [
                 'detalle' => 'required',
-
+                'imagen' => 'image'
             ]);
         }
         return $rules;

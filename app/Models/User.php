@@ -13,6 +13,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 use Spatie\Permission\Traits\HasRoles;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class User extends Authenticatable
 {
@@ -93,10 +94,16 @@ class User extends Authenticatable
         return $this->hasMany(Event::class);
     }
 
-    //Relacion uno a muchos con Expositores
+    // Relacion muchos a muchos con events
 
-     public function exhibitors(){
-        return $this->hasMany(Exhibitor::class);
-     }
+    public function event_user(){
+        return $this->belongsToMany(Event::class)->withTimestamps(); 
+    }
+
+    //relacion uno a uno con profile
+
+    public function profile(){
+        return $this->hasOne(Profile::class);
+    }
 
 }

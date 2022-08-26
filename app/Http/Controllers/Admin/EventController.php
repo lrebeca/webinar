@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
 use Illuminate\Http\Request;
 use App\Models\Admin\Event;
-use App\Models\Exhibitor;
 use App\Models\Organizer;
 use App\Models\User;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\Return_;
 
 class EventController extends Controller
 {
@@ -22,9 +23,9 @@ class EventController extends Controller
     {
         $organizers = Organizer::all();
         $events = Event::all();
-        $exhibitors = Exhibitor::all();
+        $users = User::all();
         
-        return view('admin.events.index', compact('events', 'organizers', 'exhibitors'));
+        return view('admin.events.index', compact('events', 'organizers', 'users'));
     }
 
     /**
@@ -34,11 +35,11 @@ class EventController extends Controller
      */
     public function create()
     {
-        $exhibitors = Exhibitor::pluck('nombre', 'id')->toArray();
-        $users = User::pluck('name', 'id')->toArray();
+        //$users = User::pluck('name', 'id')->toArray();
         $organizers = Organizer::all();
+        $users = User::all();
 
-        return view('admin.events.create', compact('users', 'exhibitors', 'organizers'));
+        return view('admin.events.create', compact('users', 'organizers'));
     }
 
     /**
@@ -49,20 +50,16 @@ class EventController extends Controller
      */
     public function store(EventRequest $request)
     {
+        // return $request->all();
         $event = $request->all();
         if($request->hasFile('imagen')){
-            $event['imagen'] = $request->file('imagen')->store('events');  
+            //$event['imagen'] = $request->file('imagen')->store('events');  
+            $event['imagen'] = Storage::put('events', $request->file('imagen'));  
         }
 
-        // if($imagen = $request->file('imagen'))
-        // {
-        //     $rutaGuardarImg = $imagen->store('events');
-        //     $imagenEvent = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
-        //     $imagen->move($rutaGuardarImg, $imagenEvent);
-        //     $event['imagen'] = "$imagen";
-        // }
+        $evento = Event::create($event);
 
-        Event::create($event);
+        $evento->users()->attach($request->input('users'));
 
         return redirect()->route('admin.events.index', $event)->with('info','El evento se creo con exito!!');
 
@@ -76,7 +73,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        //return $event;
+        $this->authorize('published', $event); 
+
         return view('registers.show', compact('event'));
     }
 
@@ -88,11 +87,14 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $organizers = Organizer::all();
-        $users = User::pluck('name', 'id')->toArray();
-        $exhibitors = Exhibitor::pluck('nombre', 'id')->toArray();
 
-        return view('admin.events.edit', compact('event', 'users', 'organizers', 'exhibitors'));
+        $this->authorize('author', $event);
+
+        $organizers = Organizer::all();
+        $users = User::all();
+        $user_ids = $event->users()->pluck('users.id');
+
+        return view('admin.events.edit', compact('event', 'users', 'organizers', 'user_ids'));
     }
 
 
@@ -106,21 +108,32 @@ class EventController extends Controller
     public function update(EventRequest $request, Event $event)
     {
       
-        $event->update($request->except('imagen'));
+        $this->authorize('author', $event);
 
-        if($request->file('imagen')){
+        $event->update($request->all());
 
-            $image = Storage::put('events', $event['imagen']);
+        if($request->file('imagen'))
+        {
+            $img = Storage::put('events', $request->file('imagen'));
 
-            if($request->file('imagen')){
-                Storage::delete($event['imagen']);
+            if($event->imagen)
+            {
+                Storage::delete($event->imagen);
 
-                $event->update(['imagen' => $image]);
-            }else{
-                $event->create(['imagen'=> $image]);
+                $event->update([
+                    'imagen' => $img
+                ]);
+            }
+            else
+            {
+                $event->create([
+                    'imagen' => $img
+                ]);
             }
         }
-        return $event;
+
+        $event->users()->sync($request->input('users'));
+        //return $event;
         
         return redirect()->route('admin.events.index', $event)->with('info','El evento se actualizo con exito');
     }
@@ -133,15 +146,18 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        
+        $this->authorize('author', $event);
+
         $event->delete();
 
         return redirect()->route('admin.events.index')->with('info','El evento se elimino con exito');
     }
+
     public function welcome()
     {
         //
-        $events = Event::where('estado', 2)->get();
+        $events = Event::where('estado', 2)->latest('id')->get();
 
         return view('welcome', compact('events'));
     }

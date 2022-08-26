@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class StudentRequest extends FormRequest
 {
@@ -34,28 +35,18 @@ class StudentRequest extends FormRequest
         ];
 
         if($this->estado == 'estudiante'){
-            $rules = array_merge($rules, [
-                'carnet_universitario' => 'required'
-            ]);
             if($this->costo_e > 0){
-                if($this->hasFile('img_deposito'))
-                    {
-                        $student['img_deposito'] = $this->file('img_deposito')->store('depositos');
-                    }
                 $rules = array_merge($rules, [
-                    'n_deposito' => 'required',
-                    'img_deposito' => 'required'
+                    'carnet_universitario' => 'required',
+                    // 'n_deposito' => 'required',
+                    // 'img_deposito' => 'required'
                 ]);   
             }
         }else{
             if($this->costo_e > 0){
-                if($this->hasFile('img_deposito'))
-                    {
-                        $student['img_deposito'] = $this->file('img_deposito')->store('depositos');
-                    }
                 $rules = array_merge($rules, [
-                    'n_deposito' => 'required',
-                    'img_deposito' => 'required'
+                    // 'n_deposito' => 'required',
+                    // 'img_deposito' => 'required'
                 ]); 
             }
         }

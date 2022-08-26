@@ -5,7 +5,14 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Event;   
+
+use App\Observers\EventObserver;
+use App\Models\Admin\Event as Evento;
+
+Use App\Observers\ImageObserver;
+use App\Models\Image;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +34,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Evento::observe(EventObserver::class);
+        Image::observe(ImageObserver::class);
     }
 }

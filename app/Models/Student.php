@@ -11,7 +11,7 @@ class Student extends Model
 
     protected $table = 'students';
 
-    protected $fillable = ['nombre','apellido_paterno','apellido_materno','email','carnet_identidad','carnet_universitario', 'n_celular','n_deposito', 'estado','img_deposito','id_evento'];
+    protected $fillable = ['nombre','apellido_paterno','apellido_materno','email','carnet_identidad','carnet_universitario', 'n_celular', 'n_celular2','n_deposito', 'estado', 'progreso', 'img_deposito', 'id_evento'];
 
     public function getRouteKeyName()
     {
@@ -27,8 +27,13 @@ class Student extends Model
     
     // Relacion uno a uno con certificado
 
-    public function certificate(){
-        return $this->hasOne(Certificate::class);
+    // public function certificate(){
+    //     return $this->hasOne(Certificate::class);
+    // }
+
+    //relacion uno a muchos inversa con certificados
+    public function student(){
+        return $this->belongsTo(Student::class);
     }
     
 }

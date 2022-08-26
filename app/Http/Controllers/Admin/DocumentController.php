@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Event;
 use App\Models\Document;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,7 +55,8 @@ class DocumentController extends Controller
 
         if($request->hasFile('documento'))
         {
-            $document['documento'] = $request->file('documento')->store('documents');
+            //$document['documento'] = $request->file('documento')->store('documents');
+            $document['documento'] = Storage::put('documents', $request->file('documento'));
         }
         //return $document;
         Document::create($document);
@@ -98,20 +100,33 @@ class DocumentController extends Controller
         $request->validate
         ([
             'titulo' => 'required',
-            'id_event' => 'required'
+            'id_evento' => 'required'
         ]);
 
-        $document = $request->all();
-        
+        $document->update($request->all());
 
-        if($request->hasFile('documento'))
+        if($request->file('documento'))
         {
-            $document['documento'] = $request->file('documento')->store('documents');
+            $doc = Storage::put('documents', $request->file('documento'));
+
+            if($document->documento)
+            {
+                Storage::delete($document->documento);
+
+                $document->update([
+                    'documento' => $doc
+                ]);
+            }
+            else
+            {
+                $document->create([
+                    'documento' => $doc
+                ]);
+            }
         }
+        //return $document;
 
-        Document::create($document);
-
-        return redirect()->route('admin.documents.index')->with('info', 'El documento se agrego con exito');
+        return redirect()->route('admin.documents.index')->with('info', 'El documento se actualizo con exito');
     
     }
 

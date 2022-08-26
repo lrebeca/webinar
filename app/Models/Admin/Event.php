@@ -16,7 +16,7 @@ class Event extends Model
 
     protected $table = 'events';
 
-    protected $fillable = ['evento', 'detalle', 'costo_student', 'costo_prof', 'fecha_inicio', 'fecha_fin', 'imagen', 'link_whatsapp', 'link_telegram', 'estado', 'id_expositor', 'id_organizador'];
+    protected $fillable = ['evento', 'detalle', 'costo_student', 'costo_prof', 'fecha_inicio', 'fecha_fin', 'imagen', 'link_whatsapp', 'link_telegram', 'estado', 'user_id', 'id_organizador'];
 
 
     public function getRouteKeyName()
@@ -30,16 +30,22 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
 
+    //Relacion muchos a muchos inversa con usuario
+
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
     //Relacion uno a muchos con estudiantes
 
     public function students(){
         return $this->hasMany(Student::class);
     }
 
-    //Relacion uno a muchos con certificados
+    //Relacion uno a uno con certificados
 
     public function certificates(){
-        return $this->hasMany(Certificate::class);
+        return $this->hasOne(Certificate::class);
     }
 
      // Relacion uno a uno con organizador
