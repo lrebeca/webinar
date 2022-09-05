@@ -78,11 +78,11 @@
                             </form>
 
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-light">Log in</a>
+                            {{-- <a href="{{ route('login') }}" class="btn btn-outline-light">Log in</a>
 
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="ms-4 btn btn-outline-light">Register</a>
-                            @endif
+                            @endif --}}
                         @endif
                     </div>
                 @endif    

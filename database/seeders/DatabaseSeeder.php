@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ProvinceSeeder::class);
         $this->call(OrganizerSeeder::class);
         Event::factory(20)->create();
         Student::factory(150)->create();

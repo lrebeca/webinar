@@ -3,7 +3,7 @@
     @extends('layouts.header')
     <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}" type="image/x-ico">
     <title>CPCF</title>
-<body>
+<body onload="certificar()">
     <div class="container-fluid p-5 bg-dark"></div>
     {{-- Bienvenida a la pagina de registro --}}
     <div class="alert alert-dark text-center">
@@ -25,11 +25,9 @@
             @endif
         @endforeach
         @endforeach
-
-        {{-- <img id="fondo" src="{{asset('asset/img/certificado.png')}}" class="img-fluid" alt="Responsive image " width="600"> --}}
         <br>
 
-        <canvas id="certificado" width="900" height="600" style="border:1px solid #d3d3d3;"></canvas>
+        <canvas id="certificado" width="900" height="600" style="border:1px solid #d3d3d3;" ></canvas>
 
 
         <p>
@@ -43,18 +41,26 @@
         </div>
     </div>
 
+    
 
-    <script type="text/javascript" charset="utf-8">
 
-        var c = document.getElementById("certificado");
-        var ctx = c.getContext("2d");
-        // var img = new Image();
-        // img.src = "{{asset('asset/img/certificado.png')}}";
-        var img = document.getElementById("fondo");
-        ctx.drawImage(img, 0, 0, c.width, c.height);
-        ctx.font = '60px Arial';
-        ctx.fillText(, 40, 180);
+    <script type="text/javascript" charset="utf-8" >
 
+        function certificar()
+        {
+            var c = document.getElementById("certificado");
+            var ctx = c.getContext("2d");
+            
+            var img = document.getElementById("fondo");
+            ctx.drawImage(img, 0, 0, c.width, c.height);
+
+            ctx.font = '60px Arial';
+            ctx.fillText('nombre', 40, 180);
+
+            console.log($student);
+            
+        }
+        
     </script>
 </body>
 </html>

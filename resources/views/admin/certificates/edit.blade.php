@@ -22,6 +22,11 @@
         {!! Form::close() !!}
     </div>        
 </div>
+
+<div class="card-header">
+    <a href="{{route('admin.certificates.index')}}" class="btn btn-primary">Volver</a>
+</div>
+
 @stop
 
 @section('css')

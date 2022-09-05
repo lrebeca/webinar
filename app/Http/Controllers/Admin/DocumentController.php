@@ -55,13 +55,11 @@ class DocumentController extends Controller
 
         if($request->hasFile('documento'))
         {
-            //$document['documento'] = $request->file('documento')->store('documents');
             $document['documento'] = Storage::put('documents', $request->file('documento'));
         }
-        //return $document;
-        Document::create($document);
+        $documento = Document::create($document);
 
-        return redirect()->route('admin.documents.index')->with('info', 'El documento se agrego con exito');
+        return redirect()->route('admin.documents.edit', $documento)->with('info', 'El documento se agrego con exito');
     }
     /**
      * Display the specified resource.
@@ -126,7 +124,7 @@ class DocumentController extends Controller
         }
         //return $document;
 
-        return redirect()->route('admin.documents.index')->with('info', 'El documento se actualizo con exito');
+        return redirect()->route('admin.documents.edit', $document)->with('info', 'El documento se actualizo con exito');
     
     }
 

@@ -17,56 +17,56 @@ class OrganizerSeeder extends Seeder
         Organizer::create(
             [
                 'unidad' => 'Contaduría Pública',
-                'provincia' => 'Oropeza-Sucre',
                 'detalle'=> 'Unidad academica con la mejor opcion de educación nacional e internacional',
+                'province_id' => 1
             ]);
         Organizer::create(
         [
             'unidad' => 'Administración Financiera',
-            'provincia' => 'Oropeza-Sucre',
             'detalle'=> 'Institucion de educación superior a nivel de grado y posgrado con liderazgo nacional',
+            'province_id' => 1
         ]);
         Organizer::create(
         [
             'unidad' => 'Comercio Exterior y Aduanas',
-            'provincia' => 'Oropeza-Sucre',
             'detalle'=> 'Formar profesionales del área de comercio exterior y aduanas incorporando un criterio sistematico técnico en la construcción',
+            'province_id' => 1
         ]);
         Organizer::create(
         [
             'unidad' => 'Contaduría Pública',
-            'provincia' => 'San Lucas T.S.',
             'detalle'=> 'Unidad academica con la mejor opcion de educación nacional e internacional',
+            'province_id' => 2
         ]);
         Organizer::create(
         [
             'unidad' => 'Contaduría Pública',
-            'provincia' => 'Padilla',
             'detalle'=> 'Unidad academica con la mejor opcion de educación nacional e internacional',
+            'province_id' => 3
         ]);
         Organizer::create(
         [
             'unidad' => 'Contaduría Pública',
-            'provincia' => 'Monteagudo',
             'detalle'=> 'Unidad academica con la mejor opcion de educación nacional e internacional',
+            'province_id' => 4
         ]);
         Organizer::create(
         [
             'unidad' => 'Administración Financiera',
-            'provincia' => 'Camargo T.S.',
             'detalle'=> 'Institucion de educación superior a nivel de grado y posgrado con liderazgo nacional',
+            'province_id' => 5
         ]);
         Organizer::create(
         [
             'unidad' => 'Administración Financiera',
-            'provincia' => 'Huacareta T.S.',
             'detalle'=> 'Institucion de educación superior a nivel de grado y posgrado con liderazgo nacional',
+            'province_id' => 6
         ]);
         Organizer::create(
         [
             'unidad' => 'Posgrado',
-            'provincia' => 'Oropeza-Sucre',
             'detalle'=> 'Unidad academica con la mejor opcion de educación nacional e internacional',
+            'province_id' => 1
         ]);
     }
 }

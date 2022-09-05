@@ -137,7 +137,6 @@
         @enderror
     </div>
 </div>
-
 <!-- Expositor o expositores -->
 
 <div class="form-group">
@@ -158,14 +157,25 @@
 
 <div class="form-group">
     {!! Form::label('id_organizador', 'Organizador') !!}
+    {!! Form::select('id_organizador', $organizers, null, ['class' => 'form-control', 'placeholder' => '--- Seleccione al organizador ---']) !!}
 
-    <select name="id_organizador" class="form-control selectpicker" id="id_organizador" title=" --- Seleccionar Organizador ---">
+
+    {{-- <select name="id_organizador" class="form-control selectpicker" id="id_organizador" title=" --- Seleccionar Organizador ---">
         @foreach ($organizers as $organizer)
             <option value="{{$organizer->id}}"> {{$organizer->unidad}} - {{$organizer->provincia}}</option>
         @endforeach
-    </select>
+    </select> --}}
 </div>
 
 @error('id_organizador')
+    <span class="text-danger">{{$message}}</span>
+@enderror
+
+<div class="form-group">
+    {!! Form::label('province_id', 'Organizador') !!}
+    {!! Form::select('province_id', $provinces, null, ['class' => 'form-control', 'placeholder' => '--- Seleccione la provincia ---']) !!}
+</div>
+
+@error('province_id')
     <span class="text-danger">{{$message}}</span>
 @enderror

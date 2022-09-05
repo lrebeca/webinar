@@ -54,12 +54,16 @@
                     <th>Expositor</th>
                     <th>Organizador</th>
                     <th>Acciones </th>
+                    <th>Materiales</th>
+                    <th>De los participantes</th>
+                    <th>Certificado</th>
                 </thead>
                 <tbody>
                     @foreach ($events as $event)
                         @foreach ($users as $user)
                             @foreach ($organizers as $organizer)
-                                @if ($event->user_id == $user->id && $event->id_organizador == $organizer->id)
+                            @foreach ($provinces as $province)
+                                @if ($event->user_id == $user->id && $event->id_organizador == $organizer->id && $organizer->province_id == $province->id)
                                 <tr>
                                     <td>{{$event->id}}</td>
                                     <td>{{$event->evento}}</td>
@@ -87,7 +91,7 @@
                                     </td>
                                     <td>{{$event->estado}}</td>
                                     <td>{{$user->name}}</td>
-                                    <td>{{$organizer->unidad}} {{$organizer->provincia}}</td>
+                                    <td>{{$organizer->unidad}} - {{$province->provincia}}</td>
                                     <td>
                                         <br> Editar: 
                                         <a href="{{route('admin.events.edit', $event)}}" class="btn btn-outline-primary">
@@ -107,13 +111,26 @@
                                                 </svg>
                                             </button>
                                         </form>
-                                        <br>
-                                        Agregar información, links y/o documentos para el evento <br>
-                                        <a href="{{route('admin.details.create', $event)}}" class="btn btn-primary">Agregar links</a>
-                                        <a href="{{route('admin.documents.create', $event)}}" class="btn btn-primary">Agregar Documento</a>
                                     </td>
-                                </tr>
-                                @endif
+                                    <td>
+                                        <a href="{{route('admin.events.detalles', $event)}}" class="btn btn-primary">Ver Detalles</a>
+                                        <a href="{{route('admin.events.documentos', $event)}}" class="btn btn-primary">Ver Documentos</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('admin.events.aprobados', $event)}}" class="btn btn-primary">Aprobados</a>
+                                        <a href="{{route('admin.events.pendientes', $event)}}" class="btn btn-primary">Pendientes</a>
+                                        <a href="{{route('admin.events.rechazados', $event)}}" class="btn btn-primary">Rechazados</a>
+                                    </td>
+                                    <td>
+                                        @foreach ($certificates as $certificate)
+                                            @if ($certificate->id_evento == $event->id)
+                                                <a href="{{route('admin.events.certificado', $event)}}" class="btn btn-primary">Certificado</a>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                               </tr>
+                                @endif      
+                            @endforeach
                             @endforeach
                         @endforeach
                     @endforeach

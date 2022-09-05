@@ -10,7 +10,7 @@
 <div class="card">
     <div class="card-body">
 
-        {!! Form::open(['route'=>'admin.certificates.store']) !!}
+        {!! Form::open(['route'=>'admin.certificates.store', 'files' => true]) !!}
 
             @include('admin.certificates.partials.form')
 
@@ -21,6 +21,11 @@
         {!! Form::close() !!}
     </div>        
 </div>
+
+<div class="card-header">
+    <a href="{{route('admin.certificates.index')}}" class="btn btn-primary">Volver</a>
+</div>
+
 @stop
 
 @section('css')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organizer;
+use App\Models\Province;
 use Illuminate\Http\Request;
 
 class OrganizerController extends Controller
@@ -15,9 +16,10 @@ class OrganizerController extends Controller
      */
     public function index()
     {
+        $provinces = Province::all();
         $organizers = Organizer::all();
 
-        return view('admin.organizers.index', compact('organizers'));
+        return view('admin.organizers.index', compact('organizers', 'provinces'));
     }
 
     /**
@@ -27,7 +29,9 @@ class OrganizerController extends Controller
      */
     public function create()
     {
-        return view('admin.organizers.create');
+        $provinces = Province::pluck('provincia', 'id');
+
+        return view('admin.organizers.create', compact('provinces'));
     }
 
     /**
@@ -41,13 +45,14 @@ class OrganizerController extends Controller
         $request->validate(
             [
                 'unidad' => 'required',
-                'provincia' => 'required'
+                'detalle' => 'required',
+                'province_id' => 'required'
             ]
         );
 
         $organizer = Organizer::create($request->all());
 
-        return redirect()->route('admin.organizers.index', $organizer)->with('info', 'El organizador fue creado con exito');
+        return redirect()->route('admin.organizers.edit', $organizer)->with('info', 'El organizador fue creado con exito');
     }
 
     /**
@@ -56,20 +61,12 @@ class OrganizerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Organizer $organizer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Organizer $organizer)
     {
-        return view('admin.organizers.edit', compact('organizer'));
+        $provinces = Province::pluck('provincia', 'id');
+
+        return view('admin.organizers.edit', compact('organizer', 'provinces'));
     }
 
     /**
@@ -84,13 +81,14 @@ class OrganizerController extends Controller
         $request->validate(
             [
                 'unidad' => 'required',
-                'provincia' => 'required'
+                'detalle' => 'required',
+                'province_id' => 'required'
             ]
         );
 
         $organizer->update($request->all());
 
-        return redirect()->route('admin.organizers.index', $organizer)->with('info', 'El organizador fue actualizado');
+        return redirect()->route('admin.organizers.edit', $organizer)->with('info', 'El organizador fue actualizado');
     }
 
     /**

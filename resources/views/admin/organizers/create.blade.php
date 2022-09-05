@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Crear Provincia')
 
 @section('content_header')
     <h1>Crear Nueva Unidad </h1>
@@ -30,17 +30,6 @@
             <span class="text-danger">{{$message}}</span>
         @enderror
 
-        {{-- Provincia --}}
-        <div class="form-group">
-            {!! Form::label('provincia', 'Provincia') !!}
-            {!! Form::text('provincia', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la provincia']) !!}
-        </div>
-
-        @error('provincia')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-
-
          {{-- Detalle --}}
          <div class="form-group">
             {!! Form::label('detalle', 'Detalle') !!}
@@ -51,11 +40,26 @@
             <span class="text-danger">{{$message}}</span>
         @enderror
         
-        <br>
+        {{-- Provincia --}}
+        <div class="form-group">
+            {!! Form::label('province_id ', 'Provincia') !!}
+            {!! Form::select('province_id', $provinces, null, ['class' => 'form-control', 'placeholder' => '--- Seleccione una provincia ---']) !!}
+
+        </div>
+
+        @error('province_id')
+            <span class="text-danger">{{$message}}</span>
+        @enderror
+        
+        <br><br>
         {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
 
         {!! Form::close() !!}
     </div>
+</div>
+
+<div>
+    <a href="{{route('admin.organizers.index')}}" class="btn btn-primary">Volver</a>
 </div>
 
 @stop

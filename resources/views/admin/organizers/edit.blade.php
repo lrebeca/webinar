@@ -21,41 +21,44 @@
             {!! Form::model($organizer, ['route'=>['admin.organizers.update', $organizer], 'method'=> 'put']) !!}
             
                 {{-- Unidad --}}
-                <div class="form-group">
-                    {!! Form::label('unidad', 'Unidad') !!}
-                    {!! Form::text('unidad', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad']) !!}
-                </div>
+            <div class="form-group">
+                {!! Form::label('unidad', 'Unidad') !!}
+                {!! Form::text('unidad', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad']) !!}
+            </div>
 
-                @error('unidad')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
+            @error('unidad')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
 
-                {{-- Provincia --}}
-                <div class="form-group">
-                    {!! Form::label('provincia', 'Provincia') !!}
-                    {!! Form::text('provincia', null, ['class' => 'form-control', 'placeholder'=>'Ingrese la provincia']) !!}
-                </div>
+            {{-- Detalle --}}
+            <div class="form-group">
+                {!! Form::label('detalle', 'Detalle') !!}
+                {!! Form::text('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el detalle ']) !!}
+            </div>
 
-                @error('provincia')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
+            @error('detalle')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+            
+            {{-- Provincia --}}
+            <div class="form-group">
+                {!! Form::label('province_id ', 'Provincia') !!}
+                {!! Form::select('province_id', $provinces, null, ['class' => 'form-control', 'placeholder' => '--- Seleccione una provincia ---']) !!}
 
+            </div>
 
-                {{-- Detalle --}}
-                <div class="form-group">
-                    {!! Form::label('detalle', 'Detalle') !!}
-                    {!! Form::text('detalle', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el detalle ']) !!}
-                </div>
-
-                @error('detalle')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-                <br>
-    
+            @error('province_id')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+            
             {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
     
             {!! Form::close() !!}
         </div>
+    </div>
+
+    <div>
+        <a href="{{route('admin.organizers.index')}}" class="btn btn-primary">Volver</a>
     </div>
 
 @stop

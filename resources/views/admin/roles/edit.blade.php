@@ -31,6 +31,10 @@
             {!! Form::close() !!}
         </div>        
     </div>
+
+    <div class="card-header">
+        <a href="{{route('admin.roles.index')}}" class="btn btn-primary">Volver</a>
+    </div>
 @stop
 
 @section('css')

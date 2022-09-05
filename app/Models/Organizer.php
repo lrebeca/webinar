@@ -12,12 +12,17 @@ class Organizer extends Model
     
     protected $table = 'organizers';
 
-    protected $fillable = ['unidad', 'provincia', 'detalle'];
+    protected $fillable = ['unidad', 'detalle', 'province_id'];
 
     //Relacion uno a uno inversa con Evento 
 
     public function event(){
         return $this->belongsTo(Event::class);
+    }
+
+    // Relacion uno a muchos con provincias invesa
+    public function user(){
+        return $this->belongsTo(Province::class);
     }
 
 }

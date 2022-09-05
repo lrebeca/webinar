@@ -5,7 +5,7 @@
 {{-- @section('plugins.Sweetalert2', true) --}}
 
 @section('content_header')
-    <h1>Certificados</h1>
+    <h1>Formato en imagen de certificados</h1>
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
     @endif
 
     <div class="card-header">
-        <a href="{{route('admin.images.create')}}" class="btn btn-primary">Agregar un nuevo certificado</a>
+        <a href="{{route('admin.images.create')}}" class="btn btn-primary">Agregar</a>
     </div>
     <br>
 

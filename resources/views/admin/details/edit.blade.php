@@ -7,12 +7,20 @@
 @stop
 
 @section('content')
-    <p>Cree los detalles del evento </p>
+    <p>Edite los detalles del Evento </p>
+
+    @if (session('info'))
+    <div class="alert alert-success">
+        <strong>
+            {{session('info')}}
+        </strong>
+    </div>
+    @endif
 
     <div class="card">
         <div class="card-body">
 
-            {!! Form::model($detail, ['route'=>['admin.details.store', $detail], 'method' => 'put']) !!}
+            {!! Form::model($detail, ['route'=>['admin.details.update', $detail], 'method' => 'put']) !!}
 
              <!-- Unidad organizadora -->
                 <div class="form-group">
@@ -53,6 +61,11 @@
             {!! Form::close() !!}
         </div>        
     </div>
+
+    <div class="card-header">
+        <a href="{{route('admin.details.index')}}" class="btn btn-primary">Volver</a>
+    </div>
+    
 @stop
 
 @section('css')

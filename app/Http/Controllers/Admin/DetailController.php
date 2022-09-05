@@ -51,7 +51,7 @@ class DetailController extends Controller
 
         $detail = Detail::create($request->all());
 
-        return redirect()->route('admin.details.index')->with('info', 'El detalle del evento fue creado');
+        return redirect()->route('admin.details.edit', $detail)->with('info', 'El detalle del evento fue creado');
     }
 
     /**
@@ -60,17 +60,7 @@ class DetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Detail $detail)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Detail $detail)
     {
         $events = Event::pluck('evento', 'id')->toArray();
@@ -87,7 +77,7 @@ class DetailController extends Controller
      */
     public function update(Request $request, Detail $detail)
     {
-        return $request->all();
+        //return $request->all();
         $request->validate(
             [
                 'detalle' => 'required',
@@ -96,7 +86,7 @@ class DetailController extends Controller
 
         $detail->update($request->all());
 
-        return redirect()->route('admin.details.index')->with('info', 'El detalle fue actualizado con exito!!');
+        return redirect()->route('admin.details.edit', $detail)->with('info', 'El detalle fue actualizado con exito!!');
     }
 
     /**

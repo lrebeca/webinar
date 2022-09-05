@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Editar la unidad  </h1>
+    <center><h1>{{$event->evento}} </h1></center>
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
 
     <div class="card">
         <div class="card-body">
-            {!! Form::model($student, ['route'=>['admin.students.update', $student], 'files' => true, 'method' => 'put']) !!}
+            {!! Form::model($student, ['route'=>['admin.students.enviado.update', $student], 'files' => true, 'method' => 'put']) !!}
             
                 {{-- Nombre Y apellidos --}}
 
@@ -107,6 +107,28 @@
 
                 @endif
 
+                {{-- costo del evento --}}
+
+                <div class="form-group">
+                    {!! Form::label('costo_e', 'Costo del Evento') !!}
+                    {!! Form::number('costo_e', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el costo para estudiantes']) !!}
+                </div>
+
+                @error('costo_e')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
+                {{-- Numero de Deposito --}}
+                
+                <div class="form-group mb-3" >
+                    {!! Form::label('n_deposito', 'Numero de Deposito') !!}
+                    {!! Form::number('n_deposito', null, ['class' => 'form-control', 'placeholder'=>'Ingrese su descripcion si es necesario ']) !!}
+                </div>
+
+                @error('n_deposito')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
                 <!-- Imagen  -->
 
                 <div class="row mb-3">
@@ -120,8 +142,8 @@
                         </div> 
                     </div>
                     <div class="col">
-                        <div class="form-group">
-                            {!! Form::label('img_deposito', 'Imagen') !!} <br>
+                        <div class="form-group mb-3">
+                            {!! Form::label('img_deposito', 'Imagen de Deposito') !!}
                             {!! Form::file('img_deposito', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
                         </div>
                         @error('img_deposito')
@@ -136,8 +158,8 @@
                     Estado: &nbsp;<br>
                     {!! Form::label('estado', 'Estudiante') !!}
                     {!! Form::radio('estado', 'estudiante' )!!}
-                    {!! Form::label('estado', 'Profecional') !!}
-                    {!! Form::radio('estado', 'profecional') !!}
+                    {!! Form::label('estado', 'Profesional') !!}
+                    {!! Form::radio('estado', 'profesional') !!}
                 </div>
 
                 @error('estado')
@@ -155,27 +177,21 @@
                     {!! Form::radio('progreso', 'rechazado') !!}
                 </div>
 
-                @error('estado')
+                @error('progreso')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
-
-                {{-- costo del evento --}}
-
-                <div class="form-group">
-                    {!! Form::label('costo_e', 'Costo del Evento') !!}
-                    {!! Form::number('costo_e', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el costo para estudiantes']) !!}
-                </div>
-
-                @error('costo_e')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-
     
             {!! Form::submit('Actualizar Registro', ['class' => 'btn btn-primary']) !!}
     
             {!! Form::close() !!}
         </div>
     </div>
+
+    <div class="card-header">
+        <a href="{{route('admin.students.enviado.index')}}" class="btn btn-primary">Volver a Pendientes</a>
+        <a href="{{route('admin.students.aprobado.index')}}" class="btn btn-primary">Volver a Aprobados</a>
+        <a href="{{route('admin.students.rechazado.index')}}" class="btn btn-primary">Volver a Rechazados</a>
+    </div><br>
 
 @stop
 

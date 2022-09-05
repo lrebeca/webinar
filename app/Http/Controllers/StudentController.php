@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Admin\Event;
-use App\Models\Certificate;
-use App\Models\Detail;
 use App\Models\Document;
-use App\Models\Image;
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -23,9 +20,6 @@ class StudentController extends Controller
      */ 
     public function index()
     {
-        //s$event = Event::all();
-
-        //return $student;
         return view('registers.show');        
     }
 
@@ -34,40 +28,23 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StudentRequest $request)
     {
         $id_event = $request->id_evento;
-
         $event = DB::table('events')->find($id_event);
-
-        //$event = (array)$evento; 
         
         $student = $request->all();
 
         if($request->hasFile('img_deposito'))
         {
-            //651$student['img_deposito'] = Storage::put('depositos', $request->file('img_depositos'));
+            //$student['img_deposito'] = Storage::put('depositos', $request->file('img_depositos'));
             $student['img_deposito'] = $request->file('img_deposito')->store('depositos');
         }
 
         Student::create($student);
         
-        //return $student;
-        //return $evento;
         return view('registers.show', compact('student', 'event'))->with('info', 'El estudiante esta en espera de la confirmacion');
-        //return redirect()->route('events.show', $event)->with('info', 'Se confirmara su inscripcion a su correo o whatsapp');
     }
 
     /**
@@ -76,55 +53,27 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
-    {
-        
-        
+    
 
-        return 'Esta en le show';
-        //return view('registers.show', compact('student'));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        return view('registers.show', compact('student'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Student $student)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Student $student)
-    {
-        //
-    }
     public function certificado(Student $student)
     {
         //return $student;
-        $images = Image::all();
-        $certificates = Certificate::all();
+        $id = $student->id_evento; 
+
+        $certificate = DB::table('certificates')->find($id);
+        return $certificate;
+        $id_image = $certificate->image_id;
+        $image = DB::table('images')->find($id_image);
+        $events = Event::all();
+ 
+        $pdf = Pdf::loadView('certificate.pdf', ['student' =>$student, 'certificate' => $certificate, 'image' => $image])->setPaper('carta', 'landscape');
+        return $pdf->stream();
+
+        // $pdf = Pdf::loadView('certificate.pdf', $student);
+        // return $pdf->download('invoice.pdf');
         
-        return view('certificate.index', compact('student', 'images', 'certificates')); 
+        return view('certificate.pdf', compact('student', 'image', 'certificate', 'events')); 
     }
 
     public function ingresar(Request $request, Student $student){

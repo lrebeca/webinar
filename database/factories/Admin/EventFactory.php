@@ -3,6 +3,7 @@
 namespace Database\Factories\Admin;
 
 use App\Models\Organizer;
+use App\Models\Province;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,6 +30,7 @@ class EventFactory extends Factory
             'estado'=> $this->faker->randomElement([1, 2]),
             'user_id' => User::all()->random()->id,
             'id_organizador' => Organizer::all()->random()->id,
+            'province_id' => Province::all()->random()->id,
         ];
     }
 }

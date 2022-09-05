@@ -25,29 +25,6 @@
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
 
                 @include('admin.events.partials.form')
-
-                <!-- Unidad organizadora -->
-
-                {{-- <div class="form-group">
-                    {!! Form::label('id_organizador', 'Organizador') !!}
-                    
-                    <select name="id_organizador" id="" class="form-control">
-                        <option value="id_organizador">
-                            @foreach ($organizers as $organizer)
-                                @if($organizer->id == $event->id_organizador)
-                                    {{$organizer->unidad}} - {{$organizer->provincia}}
-                                @endif
-                            @endforeach
-                        </option>
-                        @foreach ($organizers as $organizer)
-                            <option value="{{$organizer->id}}">{{$organizer->unidad}} - {{$organizer->provincia}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                @error('id_organizador')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror --}}
         
                 <br>
             {!! Form::submit('Actulizar evento', ['class' => 'btn btn-primary']) !!}
@@ -56,6 +33,11 @@
             {!! Form::close() !!}
         </div>        
     </div>
+
+    <div class="card-header">
+        <a href="{{route('admin.events.index')}}" class="btn btn-primary">Volver</a>
+    </div>
+        
 @stop
 
 @section('css')

@@ -54,8 +54,7 @@
                                     <td>{{$event->evento}}</td>
                                     <td>{!!$detail->detalle!!}</td>
                                     <td>
-                                        <a href="{{$detail->link}}">
-                                        </a>
+                                        <a href="{{$detail->link}}">{{$detail->link}}</a>
                                     </td>
                                     <td>
                                         <br> Editar: 

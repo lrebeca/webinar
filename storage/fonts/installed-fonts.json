@@ -1,0 +1,14 @@
+{
+    "nunito": {
+        "normal": "nunito_normal_586f3f8a461df5c8635a870033365d5e",
+        "600": "C:\\xampp\\htdocs\\webinar\\storage\\fonts\/nunito_600_0275befc5ca0fc822c590fc63a6c14d5",
+        "bold": "C:\\xampp\\htdocs\\webinar\\storage\\fonts\/nunito_bold_8dc3583b65bede23262ac4c563179f23"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_52f403c64fce5cb35e3be7ba84c15bad"
+    },
+    "font awesome 5 free": {
+        "normal": "C:\\xampp\\htdocs\\webinar\\storage\\fonts\/font_awesome_5_free_normal_8c43e0a14d9cb46b7d2a16c129745b5a",
+        "900": "font_awesome_5_free_900_30b00bc204a3d9311855efc85200d39f"
+    }
+}

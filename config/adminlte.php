@@ -313,23 +313,30 @@ return [
             'active' => ['admin/organizers*'],
             //'can'   => 'admin.organizers.index',
         ],
+        [
+            'text' => 'Provincias',
+            'route'  => 'admin.provinces.index',
+            'icon' => 'fas fa-fw fa-user',
+            'active' => ['admin/provinces*'],
+            //'can'   => 'admin.organizers.index',
+        ],
 
         //Fin multinivel
         ['header' => 'OPCIONES DE PARTICIPANTES'],
 
         [
             'text' => 'Pendientes de aprobación',
-            'route'  => 'admin.students.index',
+            'route'  => 'admin.students.enviado.index',
             'icon' => 'fas fa-fw fa-certificate',
         ],
         [
-            'text' => 'Aprobados',
-            //'route'  => 'admin.students.aprobado',
+            'text' => 'Participantes aprobados',
+            'route'  => 'admin.students.aprobado.index',
             'icon' => 'fas fa-fw fa-certificate',
         ],
         [
-            'text' => 'Rechazados',
-            //'route'  => 'admin.students.rechazado',
+            'text' => 'Participantes Rechazados',
+            'route'  => 'admin.students.rechazado.index',
             'icon' => 'fas fa-fw fa-certificate',
         ],
         ['header' => 'CERTIFICACIONES '],

@@ -29,7 +29,6 @@ Route::middleware([
     })->name('dashboard');
 });
 
-//Route::get('/',[EventController::class,'welcome'])->name('welcome');
 Route::get('/',[EventController::class,'index'])->name('index');
 
 Route::get('events/{event}',[EventController::class,'show'])->name('events.show');

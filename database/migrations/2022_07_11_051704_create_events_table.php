@@ -31,9 +31,11 @@ class CreateEventsTable extends Migration
             // Llave foranea
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('id_organizador')->nullable();
+            $table->unsignedBigInteger('province_id')->nullable();
             // Restrigcion de la llave foranea
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); //Si un usuario se elimina por cascade todos los eventos que ese usuario creo se eliminaran tambien
             $table->foreign('id_organizador')->references('id')->on('organizers')->onDelete('set null'); // set null cuandi un organizador se elimina el valor que se le dara a ese campo sera de nulo
+            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('set null'); // set null cuandi un organizador se elimina el valor que se le dara a ese campo sera de nulo
 
             $table->timestamps();
         });

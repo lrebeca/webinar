@@ -14,39 +14,21 @@
 
             {!! Form::open(['route'=>'admin.events.store','files' => true]) !!}
 
-                {{-- {!! Form::hidden('user_id', auth()->user()->id) !!} --}}
-
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
 
                 @include('admin.events.partials.form')
 
-                
-                <!-- Unidad organizadora -->
-
-                <div class="form-group">
-                    {!! Form::label('id_organizador', 'Organizador') !!}
-                    {{-- {!! Form::select('id_organizador',$organizers, null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad que esta organizando el evento']) !!} --}}
-                    
-                    <select name="id_organizador" id="" class="form-control selectpicker" title="--- Seleccione un Organizador ---">
-                        @foreach ($organizers as $organizer)
-                            <option value="{{$organizer->id}}">{{$organizer->unidad}} - {{$organizer->provincia}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                @error('id_organizador')
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-        
-                <br>
-
             <br>
             {!! Form::submit('Crear actividad', ['class' => 'btn btn-primary']) !!}
             <br>
-
             {!! Form::close() !!}
         </div>        
     </div>
+
+    <div class="card-header">
+        <a href="{{route('admin.events.index')}}" class="btn btn-primary">Volver</a>
+    </div>
+
 @stop
 
 @section('css')

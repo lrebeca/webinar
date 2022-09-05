@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Documentos')
 
 @section('content_header')
     <h1>Documentos</h1>
@@ -8,6 +8,14 @@
 
 @section('content')
     <p>Cree los documentos del evento </p>
+
+    @if (session('info'))
+    <div class="alert alert-success">
+        <strong>
+            {{session('info')}}
+        </strong>
+    </div>
+    @endif
 
     <div class="card">
         <div class="card-body">
@@ -57,6 +65,11 @@
             {!! Form::close() !!}
         </div>        
     </div>
+
+    <div class="card-header">
+        <a href="{{route('admin.documents.index')}}" class="btn btn-primary">Volver</a>
+    </div>
+
 @stop
 
 @section('css')

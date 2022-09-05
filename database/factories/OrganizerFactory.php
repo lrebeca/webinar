@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Province;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrganizerFactory extends Factory
@@ -15,8 +16,8 @@ class OrganizerFactory extends Factory
     {
         return [
             'unidad' => $this->faker->sentence(),
-            'provincia' => $this->faker->sentence(),
-            'detalle'=> $this->faker->paragraph(1)
+            'detalle'=> $this->faker->paragraph(1), 
+            'province_id' => Province::all()->random()->id
         ];
     }
 }

@@ -1,13 +1,14 @@
  <!-- Evento -->
  <div class="form-group">
     {!! Form::label('id_evento', 'Evento') !!}
-    
-    <select name="id_evento" id="" class="form-control">
-        <option value="">-- Seleccione un Evento --</option>
+
+    {!! Form::select('id_evento', $eventos, null, ['class' => 'form-control', 'placeholder' => '--- Seleccione un evento ---']) !!}
+
+    {{-- <select name="id_evento" id="" class="form-control">
         @foreach ($events as $event)
             <option value="{{$event->id}}">{{$event->evento}}</option>
         @endforeach
-    </select>
+    </select> --}}
 </div>
 
 @error('id_evento')

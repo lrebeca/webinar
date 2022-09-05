@@ -61,7 +61,7 @@ class RoleController extends Controller
 
         $role->permissions()->attach($request->permissions);
 
-        return redirect()->route('admin.roles.index')->with('info', 'El rol se creo satisfactoriamente');
+        return redirect()->route('admin.roles.edit', $role)->with('info', 'El rol se creo satisfactoriamente');
     }
 
     /**
@@ -70,18 +70,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
-    {
-        return view('admin.roles.show', compact('role'));
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Role $role)
     {
         $permissions = Permission::all();

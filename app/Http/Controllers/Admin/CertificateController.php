@@ -33,8 +33,9 @@ class CertificateController extends Controller
     {
         $events = Event::all();
         $images = Image::all();
+        $eventos = Event::pluck('evento', 'id');
 
-        return view('admin.certificates.create', compact('events', 'images'));
+        return view('admin.certificates.create', compact('events', 'images', 'eventos'));
     }
 
     /**
@@ -45,7 +46,16 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all(); 
+        $id_evento = $request->id_evento;
+        $certificates = Certificate::all();
+
+        foreach($certificates as $certificate)
+        {
+            if($certificate->id_evento == $id_evento)
+            {
+                return redirect()->route('admin.certificates.index')->with('info', 'El evento ya tiene un certificado !!!');
+            }    
+        }
         $request->validate([
             'id_evento' => 'required',
             'detalle' => 'required',
@@ -54,9 +64,9 @@ class CertificateController extends Controller
 
         $certificate = $request->all();
 
-        Certificate::create($certificate);
-
-        return redirect()->route('admin.certificates.index')->with('info', 'El certificado se creo con exito!!!');
+        $cer = Certificate::create($certificate);
+        
+        return redirect()->route('admin.certificates.edit', $cer)->with('info', 'El certificado se creo con exito!!!');
     }
 
     /**
@@ -65,23 +75,13 @@ class CertificateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Certificate $certificate)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Certificate $certificate)
     {
         $events = Event::all();
+        $eventos = Event::pluck('evento', 'id');
         $images = Image::all();
 
-        return view('admin.certificates.edit', compact('certificate', 'events', 'images'));
+        return view('admin.certificates.edit', compact('certificate', 'events', 'images', 'eventos'));
     }
 
     /**
@@ -101,7 +101,7 @@ class CertificateController extends Controller
             $request->all()
         );
 
-        return redirect()->route('admin.certificates.index')->with('info', 'El certificado se actualizo con exito!!!');
+        return redirect()->route('admin.certificates.edit', $certificate)->with('info', 'El certificado se actualizo con exito!!!');
     }
 
     /**

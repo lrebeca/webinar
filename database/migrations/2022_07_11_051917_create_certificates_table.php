@@ -32,7 +32,7 @@ class CreateCertificatesTable extends Migration
             $table->unsignedBigInteger('image_id');
             // Restrigcion de llave foranea
             $table->foreign('id_evento')->references('id')->on('events')->onDelete('cascade');
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');// Si una imagen se elimina se eliminaran todos los certificados que pertenecen a esa imagen 
 
             $table->timestamps();
         });
